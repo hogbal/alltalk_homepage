@@ -1,0 +1,26 @@
+version: '3'
+services:
+  flask:
+    build: ./HomePage
+    image: alltalk/homepage
+    ports:
+      - 5000:5000
+    volumes:
+      - ./HomePage:/usr/src/app
+    environment:
+      - TZ=Asia/Seoul
+  mariadb:
+    build: ./MariaDB
+    image: alltalk/mariadb
+    volumes:
+      - ./MariaDB/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - TZ=Asia/Seoul
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    restart: always
