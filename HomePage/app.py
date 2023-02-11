@@ -3,7 +3,7 @@ import configparser
 from flask import Flask
 from models import init_db
 
-from blueprint import signup, main
+from blueprint import signin, signup, main
 
 config = configparser.ConfigParser()
 config.read('/usr/src/app/config.ini')
@@ -27,6 +27,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqlconnector://{db['user']}:{d
 
 db = init_db(app)
 
+app.register_blueprint(signin.blue_signin)
 app.register_blueprint(signup.blue_signup)
 app.register_blueprint(main.blue_main)
 

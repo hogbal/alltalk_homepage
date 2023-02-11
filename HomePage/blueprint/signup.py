@@ -12,19 +12,20 @@ def signup():
         phone = request.form.get("phone","")
         email = request.form.get("email","")
         nickname = request.form.get("nickname","")
-        sex = request.form.get("sex","")
+        sex = request.form.get("sex","", type=bool)
         birthday = request.form.get("birthday","")
         tag = request.form.get("tag","")
-        admin = request.form.get("admin","")
+        admin = request.form.get("admin","", type=bool)
         
         if(id != "" or pw != "" or name != "" or email != "" or nickname != "" or sex != "" or birthday != "" or tag != "" or admin != ""):
             try:
-                new_user = userInfo(id=id, pw=pw, name=name, email=email, nickname=nickname, sex=sex, birthday=birthday, tag=tag, admin=admin)
+                new_user = userInfo(id=id, pw=pw, name=name, phone=phone, email=email, nickname=nickname, sex=sex, birthday=birthday, tag=tag, admin=admin)
 
                 db.session.add(new_user)
                 db.session.commit()
                 return jsonify({'result':True})
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
