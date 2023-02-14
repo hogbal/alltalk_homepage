@@ -24,8 +24,7 @@ def signup():
                 db.session.add(new_user)
                 db.session.commit()
                 return jsonify({'result':True})
-            except Exception as e:
-                print(e)
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})

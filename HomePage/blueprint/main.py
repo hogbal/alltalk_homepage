@@ -9,6 +9,7 @@ def content():
         contents = adminDashboard.query\
             .join(adminImg, adminDashboard.uid==adminImg.uid, isouter=True)\
             .add_columns(adminImg.img)\
+            .order_by(adminDashboard.uid)\
             .all()
         
         for i in contents:

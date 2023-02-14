@@ -1,6 +1,7 @@
 import requests
 
 url = "http://localhost:5000/signin"
+# url = "http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/signin"
 
 data = {
     "id":"test",
