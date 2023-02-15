@@ -1,17 +1,17 @@
 from flask import Blueprint, request, jsonify
-from models import userInfo, db
+from models import user_info, db
 
 blue_signin = Blueprint("signin", __name__, url_prefix="/signin")
 
 @blue_signin.route("/", methods=["POST"])
 def signup():
     if(request.method == "POST"):
-        id = request.form.get("id","")
-        pw = request.form.get("pw","")
+        id = request.form.get("id",None)
+        pw = request.form.get("pw",None)
         
-        if(id != "" or pw != ""):
+        if(id and pw):
             try:
-                user = userInfo.query.filter((userInfo.id==id) & (userInfo.pw==pw)).first()
+                user = user_info.query.filter((user_info.id==id) & (user_info.pw==pw)).first()
                 if(user != None):
                     return jsonify({'result':True})
                 else:

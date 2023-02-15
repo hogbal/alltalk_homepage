@@ -1,31 +1,41 @@
 import uuid
 import datetime
 from flask import Blueprint, request, jsonify
-from models import adminDashboard, storyDashboard, adminImg
+from models import admin_dashboard, story_dashboard, admin_img, story_img, admin_temporary_storage, admin_temporary_img, temporary_storage, temporary_img, db
 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
 @blue_write.route("/", methods=["POST"])
 def write():
     if(request.method == "POST"):
-        id = request.form.get("id","")
-        title = request.form.get("title","")
-        subtitle = request.form.get("subtitle","")
-        content = request.form.get("content","")
+        id = request.form.get("id", None)
+        title = request.form.get("title", None)
+        subtitle = request.form.get("subtitle", None)
+        content = request.form.get("content", None)
         imgs = request.files.getlist("file[]")
-        tag = request.form.get("tag","")
-        admin = request.form.get("admin",False, type=bool)
-        maxMember = request.form.get("maxMember","")
-        deadline = request.form.get("deadline","")
-        
+        tag = request.form.get("tag", None)
+        admin = request.form.get("admin", None, type=lambda isAdmin: isAdmin.lower() == 'true')
+        maxMember = request.form.get("maxMember", None)
+        deadline = request.form.get("deadline", None)
+
         if(admin):
-            if(id != "" and title != "" and content != "" and tags != "" and maxMember != "", deadline != ""):
+            if(id and title and content and tag and maxMember and deadline):
                 try:
+                    deadline = datetime.datetime.fromtimestamp(int(deadline))
+                    
+                    uid = str(uuid.uuid4())
                     now = datetime.datetime.now()
                     
-                    newAdminDashboadr = adminDashboard(uid=uuid.uuid4(), id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now, maxMember=maxMember, deadline=deadline, member=0, like=0)
+                    newAdminDashboard = admin_dashboard(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now, maxMember=maxMember, deadline=deadline, member=0, like=0)
                     
-                    db.session.add(newAdminDashboadr)
+                    db.session.add(newAdminDashboard)
+                    db.session.commit()
+                    
+                    if(imgs):
+                        for img in imgs:
+                            newAdminImg = admin_img(idx=None, uid=uid,img=img.read())
+                            db.session.add(newAdminImg)
+                    
                     db.session.commit()
                     
                     return jsonify({'result':True})
@@ -34,15 +44,86 @@ def write():
             else:
                 return jsonify({'result':'error'})
         else:
-            if(id != "" and title != "" and content != "" and tags != ""):
+            if(id and title and content and tag):
                 try:
+                    uid = str(uuid.uuid4())
                     now = datetime.datetime.now()
                     
-                    newStoryDashboadr = storyDashboard(uid=uuid.uuid4(), id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now, like=0)
+                    newStoryDashboard = story_dashboard(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now, like=0)
                     
-                    db.session.add(newStoryDashboadr)
+                    db.session.add(newStoryDashboard)
                     db.session.commit()
+                    
+                    if(imgs):
+                        for img in imgs:
+                            newStoryImg = story_img(idx=None, uid=uid,img=img.read())
+                            db.session.add(newStoryImg)
+                    
+                    db.session.commit()    
                     
                     return jsonify({'result':True})
                 except:
                     return jsonify({'result':False})
+            else:
+                return jsonify({'result':'error'})
+
+
+@blue_write.route("/temp",methods=["POST"])
+def temp():
+    if(request.method == "POST"):
+        id = request.form.get("id","")
+        title = request.form.get("title","")
+        subtitle = request.form.get("subtitle","")
+        content = request.form.get("content","")
+        imgs = request.files.getlist("file[]")
+        tag = request.form.get("tag","")
+        admin = request.form.get("admin", default=False, type=lambda isAdmin: isAdmin.lower() == 'true')
+        
+        if(admin):
+            if(id):
+                try:
+                    uid = str(uuid.uuid4())
+                    now = datetime.datetime.now()
+                    
+                    newAdminTemporaryDashboard = admin_temporary_storage(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now)
+
+                    db.session.add(newAdminTemporaryDashboard)
+                    db.session.commit()
+                    
+                    if(imgs):
+                        for img in imgs:
+                            newAdminTemporaryImg = admin_temporary_img(idx=None, uid=uid ,img=img.read())
+                            db.session.add(newAdminTemporaryImg)
+                    
+                    db.session.commit()
+                    
+                    return jsonify({'result':True})
+                except Exception as e:
+                    print(e)
+                    return jsonify({'result':False})
+            else:
+                return jsonify({'result':'error'})
+        else:
+            if(id):
+                try:
+                    uid = str(uuid.uuid4())
+                    now = datetime.datetime.now()
+                    
+                    newTemporaryStorage = temporary_storage(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now)
+                    
+                    db.session.add(newTemporaryStorage)
+                    db.session.commit()
+                    
+                    if(imgs):
+                        for img in imgs:
+                            TemporaryImg = temporary_img(idx=None, uid=uid,img=img.read())
+                            db.session.add(TemporaryImg)
+                    
+                    db.session.commit()    
+                    
+                    return jsonify({'result':True})
+                except Exception as e:
+                    print(e)
+                    return jsonify({'result':False})
+            else:
+                return jsonify({'result':'error'})

@@ -1,15 +1,15 @@
 from flask import Blueprint, request, jsonify
-from models import adminDashboard, adminImg
+from models import admin_dashboard, admin_img
 
 blue_main = Blueprint("main", __name__, url_prefix="/main")
 
 @blue_main.route("/content", methods=["POST"])
 def content():
     if(request.method == "POST"):
-        contents = adminDashboard.query\
-            .join(adminImg, adminDashboard.uid==adminImg.uid, isouter=True)\
-            .add_columns(adminImg.img)\
-            .order_by(adminDashboard.uid)\
+        contents = admin_dashboard.query\
+            .join(admin_img, admin_dashboard.uid==admin_img.uid, isouter=True)\
+            .add_columns(admin_img.img)\
+            .order_by(admin_dashboard.uid)\
             .all()
         
         for i in contents:
