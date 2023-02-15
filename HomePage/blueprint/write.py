@@ -78,14 +78,19 @@ def temp():
         imgs = request.files.getlist("file[]")
         tag = request.form.get("tag","")
         admin = request.form.get("admin", default=False, type=lambda isAdmin: isAdmin.lower() == 'true')
+        maxMember = request.form.get("maxMember", None)
+        deadline = request.form.get("deadline", None)
         
         if(admin):
             if(id):
                 try:
+                    if(deadline):
+                        deadline = datetime.datetime.fromtimestamp(int(deadline))
+                    
                     uid = str(uuid.uuid4())
                     now = datetime.datetime.now()
                     
-                    newAdminTemporaryDashboard = admin_temporary_storage(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now)
+                    newAdminTemporaryDashboard = admin_temporary_storage(uid=uid, id=id, title=title, subtitle=subtitle, content=content, tag=tag, day=now, maxMember=maxMember, deadline=deadline)
 
                     db.session.add(newAdminTemporaryDashboard)
                     db.session.commit()
