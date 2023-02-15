@@ -5,7 +5,7 @@ from models import admin_dashboard, story_dashboard, admin_img, story_img, admin
 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
-@blue_write.route("/", methods=["POST"])
+@blue_write.route("/", methods=["POST"], strict_slashes=False)
 def write():
     if(request.method == "POST"):
         id = request.form.get("id", None)

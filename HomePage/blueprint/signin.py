@@ -3,7 +3,7 @@ from models import user_info, db
 
 blue_signin = Blueprint("signin", __name__, url_prefix="/signin")
 
-@blue_signin.route("/", methods=["POST"])
+@blue_signin.route("/", methods=["POST"], strict_slashes=False)
 def signup():
     if(request.method == "POST"):
         id = request.form.get("id",None)

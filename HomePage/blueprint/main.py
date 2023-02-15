@@ -12,7 +12,11 @@ def content():
             .order_by(admin_dashboard.uid)\
             .all()
         
+        data = [
+            
+        ]
+        
         for i in contents:
-            print(i.img)
+            print(i)
         
         return "test"
