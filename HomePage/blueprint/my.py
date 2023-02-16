@@ -7,13 +7,13 @@ blue_my = Blueprint("my", __name__, url_prefix="/my")
 def my():
     if(request.method == "POST"):
         id = request.form.get("id",None)
-        admin = user_info.query.filter(user_info.id==id).first().admin
         
         if(id):
             try:
+                idAdmin = user_info.query.filter(user_info.id==id).first().admin
                 user = user_info.query.filter(user_info.id==id).first()
                 likeList = like_list.query.filter(like_list.id==id).all()
-                if(admin):
+                if(idAdmin):
                     dashboardList = admin_dashboard.query.filter(admin_dashboard.id==id).all()
                 else:
                     dashboardList = story_dashboard.query.filter(story_dashboard.id==id).all()
@@ -29,7 +29,7 @@ def my():
                 }
                 
                 for dashboard in dashboardList:
-                    if(admin):
+                    if(idAdmin):
                         storyImgLen = len(admin_img.query.filter(admin_img.uid==dashboard.uid).all())
                     else:
                         storyImgLen = len(story_img.query.filter(story_img.uid==dashboard.uid).all())
