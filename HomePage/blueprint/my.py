@@ -1,60 +1,125 @@
 from flask import Blueprint, request, jsonify
-from models import user_info, like_list, admin_dashboard, admin_img, story_dashboard, story_img, member_list, db
+from models import user_info, content_like_list, story_like_list, content_dashboard, content_member_list, content_img, story_dashboard, story_img, db
 
 blue_my = Blueprint("my", __name__, url_prefix="/my")
 
-@blue_my.route("/", methods=["POST"], strict_slashes=False)
-def my():
+@blue_my.route("/admin", methods=["POST"])
+def admin():
     if(request.method == "POST"):
         id = request.form.get("id",None)
-        
         if(id):
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
-                user = user_info.query.filter(user_info.id==id).first()
-                likeList = like_list.query.filter(like_list.id==id).all()
+                
                 if(isAdmin):
-                    dashboardList = admin_dashboard.query.filter(admin_dashboard.id==id).all()
+                    user = user_info.query.filter(user_info.id==id).first()
+                    contentList = content_dashboard.query.filter(content_dashboard.id==id).all()
+                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
+                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
+                    participationList = content_member_list.query.filter(content_member_list.id==id).all()
+                    
+                    data = {
+                        "nickname":user.nickname,
+                        "profile":user.profile,
+                        "introduce":user.introduce,
+                        "story":[],
+                        "storyLike":[],
+                        "contentLike":[],
+                        "participation":[]
+                    }
+                    
+                    for content in contentList:
+                        contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
+                        contentData = {
+                            "idx":content.idx,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
+                            "title":content.title,
+                            "day":content.day
+                        }
+                        data["story"].append(contentData)
+                        
+                    for storyLike in storyLikeList:
+                        storyLikeData = {
+                            "idx":storyLike.story_idx
+                        }
+                        data["storyLike"].append(storyLikeData)
+                        
+                    for contentLike in contentLikeList:
+                        contentLikeData = {
+                            "idx":contentLike.story_idx
+                        }
+                        data["contentLike"].append(contentLikeData)
+                        
+                    for participation in participationList:
+                        participationData = {
+                            "idx":participation.content_idx
+                        }
+                        data["participation"].append(participationData)
+                    
+                    return data
                 else:
-                    dashboardList = story_dashboard.query.filter(story_dashboard.id==id).all()
-                contentList = member_list.query.filter(member_list.id==id).all()
+                    return jsonify({'result':False})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
+
+@blue_my.route("/user", methods=["POST"])
+def user():
+    if(request.method == "POST"):
+        id = request.form.get("id",None)
+        if(id):
+            try:
+                isUser = not user_info.query.filter(user_info.id==id).first().admin
                 
-                data = {
-                    "nickname":user.nickname,
-                    "profile":user.profile,
-                    "introduce":user.introduce,
-                    "story":[],
-                    "like":[],
-                    "content":[]
-                }
-                
-                for dashboard in dashboardList:
-                    if(isAdmin):
-                        storyImgLen = len(admin_img.query.filter(admin_img.uid==dashboard.uid).all())
-                    else:
-                        storyImgLen = len(story_img.query.filter(story_img.uid==dashboard.uid).all())
-                    dashboardData = {
-                        "uid":dashboard.uid,
-                        "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{dashboard.uid}/0" if(storyImgLen != 0) else None,
-                        "title":dashboard.title,
-                        "day":dashboard.day
+                if(isUser):
+                    user = user_info.query.filter(user_info.id==id).first()
+                    storyList = story_dashboard.query.filter(story_dashboard.id==id).all()
+                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
+                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
+                    participationList = content_member_list.query.filter(content_member_list.id==id).all()
+                    
+                    data = {
+                        "nickname":user.nickname,
+                        "profile":user.profile,
+                        "introduce":user.introduce,
+                        "story":[],
+                        "storyLike":[],
+                        "contentLike":[],
+                        "participation":[]
                     }
                     
-                    data["story"].append(dashboardData)
+                    for story in storyList:
+                        storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
+                        storyData = {
+                            "idx":story.idx,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
+                            "title":story.title,
+                            "day":story.day
+                        }
+                        data["story"].append(storyData)
+                        
+                    for storyLike in storyLikeList:
+                        storyLikeData = {
+                            "idx":storyLike.story_idx
+                        }
+                        data["storyLike"].append(storyLikeData)
+                        
+                    for contentLike in contentLikeList:
+                        contentLikeData = {
+                            "idx":contentLike.content_idx
+                        }
+                        data["contentLike"].append(contentLikeData)
+                        
+                    for participation in participationList:
+                        participationData = {
+                            "idx":participation.content_idx
+                        }
+                        data["participation"].append(participationData)
                     
-                for like in likeList:
-                    likeData = {
-                        "uid":like.dashboardUID
-                    }
-                    data["like"].append(likeData)
-                
-                for content in contentList:
-                    contentData = {
-                    "uid":content.uid
-                    }
-                    data["content"].append(contentData)
-                
-                return data
+                    return data
+                else:
+                    return jsonify({'result':False})
             except:
                 return jsonify({'result':False})
         else:

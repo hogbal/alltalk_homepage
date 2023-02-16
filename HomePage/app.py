@@ -4,7 +4,7 @@ from flask import Flask
 from models import init_db
 from flask_cors import CORS
 
-from blueprint import signin, signup, main, story, write, util, my
+from blueprint import signin, signup, main, write, content, util, my
 
 config = configparser.ConfigParser()
 config.read('/usr/src/app/config.ini')
@@ -32,7 +32,7 @@ db = init_db(app)
 app.register_blueprint(signin.blue_signin)
 app.register_blueprint(signup.blue_signup)
 app.register_blueprint(main.blue_main)
-app.register_blueprint(story.blue_story)
+app.register_blueprint(content.blue_content)
 app.register_blueprint(write.blue_write)
 app.register_blueprint(util.blue_util)
 app.register_blueprint(my.blue_my)

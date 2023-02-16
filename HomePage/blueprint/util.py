@@ -1,26 +1,19 @@
 from flask import Blueprint, request, jsonify
-from models import like_list, admin_dashboard, story_dashboard, admin_img, story_img, db
+from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, db
 
 blue_util = Blueprint("util", __name__, url_prefix="/util")
 
-@blue_util.route("/like", methods=["POST"])
-def like():
+@blue_util.route("/content/like", methods=["POST"])
+def content_like():
     if(request.method == "POST"):
         id = request.form.get("id",None)
-        uid = request.form.get("uid",None)
+        idx = request.form.get("idx",None)
         
-        if(id and uid):
+        if(id and idx):
             try:
-                newLikeList = like_list(idx=None, id=id, dashboardUID=uid)
-                
-                adminDashboard = admin_dashboard.query.filter(admin_dashboard.uid==uid).first()
-                
-                if(adminDashboard):
-                    adminDashboard.like = adminDashboard.like+1
-                else:
-                    storyDashboard = story_dashboard.query.filter(story_dashboard.uid==uid).first()
-                    storyDashboard.like = storyDashboard.like+1
-                
+                newLikeList = content_like_list(idx=None, content_idx=idx, id=id)
+                contentDashboard = content_dashboard.query.filter(content_dashboard.idx==idx).first()
+                contentDashboard.like = contentDashboard.like+1
                 
                 db.session.add(newLikeList)
                 db.session.commit()
@@ -29,16 +22,42 @@ def like():
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
+
+@blue_util.route("/story/like", methods=["POST"])
+def story_like():
+    if(request.method == "POST"):
+        id = request.form.get("id",None)
+        idx = request.form.get("idx",None)
         
-@blue_util.route("/img/<uid>/<num>", methods=["POST"])
-def img(uid, num):
+        if(id and idx):
+            try:
+                newLikeList = story_like_list(idx=None, story_idx=idx, id=id)
+                storyDashboard = story_dashboard.query.filter(story_dashboard.idx==idx).first()
+                storyDashboard.like = storyDashboard.like+1
+                
+                db.session.add(newLikeList)
+                db.session.commit()
+                return jsonify({'result':True})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
+
+@blue_util.route("/content/<idx>/<num>", methods=["POST"])
+def content_get_img(idx, num):
     if(request.method == "POST"):
         try:
-            adminImg = admin_img.query.filter(admin_img.uid==uid).all()
-            if(adminImg):
-                return adminImg[int(num)].img
-            else:
-                storyImg = story_img.query.filter(story_img.uid==uid).all()
-                return storyImg[int(num)].img
+            contentImg = content_img.query.filter(content_img.content_idx==idx).all()
+            return contentImg[int(num)].img
+        except Exception as e:
+            print(e)
+            return jsonify({'result':False})
+       
+@blue_util.route("/story/<idx>/<num>", methods=["POST"])
+def story_get_img(idx, num):
+    if(request.method == "POST"):
+        try:
+            storyImg = story_img.query.filter(story_img.story_idx==idx).all()
+            return storyImg[int(num)].img
         except:
-           return jsonify({'result':False})
+            return jsonify({'result':False})
