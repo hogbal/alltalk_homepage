@@ -25,11 +25,15 @@ def participation():
         
         if(id and idx):
             try:
-                newContentMemberList = content_member_list(idx=None, content_idx=idx, id=id)
-                
-                db.session.add(newContentMemberList)
-                db.session.commit()
-                return jsonify({'result':True})
+                isParticipation = content_member_list.query.filter((content_member_list.content_idx==idx) & (content_member_list.id==id)).first()
+                if(not isParticipation):
+                    newContentMemberList = content_member_list(idx=None, content_idx=idx, id=id)
+                    
+                    db.session.add(newContentMemberList)
+                    db.session.commit()
+                    return jsonify({'result':True})
+                else:
+                    return jsonify({'result':False})
             except:
                 return jsonify({'result':False})
         else:

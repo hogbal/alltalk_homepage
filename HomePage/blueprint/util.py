@@ -11,13 +11,18 @@ def content_like():
         
         if(id and idx):
             try:
-                newLikeList = content_like_list(idx=None, content_idx=idx, id=id)
-                contentDashboard = content_dashboard.query.filter(content_dashboard.idx==idx).first()
-                contentDashboard.like = contentDashboard.like+1
+                isLike = content_like_list.query.filter((content_like_list.content_idx==idx) & (content_like_list.id==id)).first()
                 
-                db.session.add(newLikeList)
-                db.session.commit()
-                return jsonify({'result':True})
+                if(not isLike):
+                    newLikeList = content_like_list(idx=None, content_idx=idx, id=id)
+                    contentDashboard = content_dashboard.query.filter(content_dashboard.idx==idx).first()
+                    contentDashboard.like = contentDashboard.like+1
+                    
+                    db.session.add(newLikeList)
+                    db.session.commit()
+                    return jsonify({'result':True})
+                else:
+                    return jsonify({'result':False})
             except:
                 return jsonify({'result':False})
         else:
@@ -31,13 +36,18 @@ def story_like():
         
         if(id and idx):
             try:
-                newLikeList = story_like_list(idx=None, story_idx=idx, id=id)
-                storyDashboard = story_dashboard.query.filter(story_dashboard.idx==idx).first()
-                storyDashboard.like = storyDashboard.like+1
+                isLike = story_like_list.query.filter((story_like_list.story_idx==idx) & (story_like_list.id==id)).first()
                 
-                db.session.add(newLikeList)
-                db.session.commit()
-                return jsonify({'result':True})
+                if(not isLike):
+                    newLikeList = story_like_list(idx=None, story_idx=idx, id=id)
+                    storyDashboard = story_dashboard.query.filter(story_dashboard.idx==idx).first()
+                    storyDashboard.like = storyDashboard.like+1
+                    
+                    db.session.add(newLikeList)
+                    db.session.commit()
+                    return jsonify({'result':True})
+                else:
+                    return jsonify({'result':False})
             except:
                 return jsonify({'result':False})
         else:
