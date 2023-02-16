@@ -10,10 +10,10 @@ def my():
         
         if(id):
             try:
-                idAdmin = user_info.query.filter(user_info.id==id).first().admin
+                isAdmin = user_info.query.filter(user_info.id==id).first().admin
                 user = user_info.query.filter(user_info.id==id).first()
                 likeList = like_list.query.filter(like_list.id==id).all()
-                if(idAdmin):
+                if(isAdmin):
                     dashboardList = admin_dashboard.query.filter(admin_dashboard.id==id).all()
                 else:
                     dashboardList = story_dashboard.query.filter(story_dashboard.id==id).all()
@@ -29,13 +29,13 @@ def my():
                 }
                 
                 for dashboard in dashboardList:
-                    if(idAdmin):
+                    if(isAdmin):
                         storyImgLen = len(admin_img.query.filter(admin_img.uid==dashboard.uid).all())
                     else:
                         storyImgLen = len(story_img.query.filter(story_img.uid==dashboard.uid).all())
                     dashboardData = {
                         "uid":dashboard.uid,
-                        "img":f"http://localhost:5000/util/{dashboard.uid}/0" if(storyImgLen != 0) else None,
+                        "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{dashboard.uid}/0" if(storyImgLen != 0) else None,
                         "title":dashboard.title,
                         "day":dashboard.day
                     }
