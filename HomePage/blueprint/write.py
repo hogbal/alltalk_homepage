@@ -1,7 +1,7 @@
 import uuid
 import datetime
 from flask import Blueprint, request, jsonify
-from models import admin_dashboard, story_dashboard, admin_img, story_img, admin_temporary_storage, admin_temporary_img, temporary_storage, temporary_img, db
+from models import user_info, admin_dashboard, story_dashboard, admin_img, story_img, admin_temporary_storage, admin_temporary_img, temporary_storage, temporary_img, db
 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
@@ -14,9 +14,9 @@ def write():
         content = request.form.get("content", None)
         imgs = request.files.getlist("file[]")
         tag = request.form.get("tag", None)
-        admin = request.form.get("admin", None, type=lambda isAdmin: isAdmin.lower() == 'true')
         maxMember = request.form.get("maxMember", None)
         deadline = request.form.get("deadline", None)
+        admin = user_info.query.filter(user_info.id==id).first().admin
 
         if(admin):
             if(id and title and content and tag and maxMember and deadline):
@@ -77,9 +77,9 @@ def temp():
         content = request.form.get("content","")
         imgs = request.files.getlist("file[]")
         tag = request.form.get("tag","")
-        admin = request.form.get("admin", default=False, type=lambda isAdmin: isAdmin.lower() == 'true')
         maxMember = request.form.get("maxMember", None)
         deadline = request.form.get("deadline", None)
+        admin = user_info.query.filter(user_info.id==id).first().admin
         
         if(admin):
             if(id):
@@ -103,8 +103,7 @@ def temp():
                     db.session.commit()
                     
                     return jsonify({'result':True})
-                except Exception as e:
-                    print(e)
+                except:
                     return jsonify({'result':False})
             else:
                 return jsonify({'result':'error'})
@@ -127,8 +126,7 @@ def temp():
                     db.session.commit()    
                     
                     return jsonify({'result':True})
-                except Exception as e:
-                    print(e)
+                except:
                     return jsonify({'result':False})
             else:
                 return jsonify({'result':'error'})
