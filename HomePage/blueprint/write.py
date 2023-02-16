@@ -1,7 +1,7 @@
 import uuid
 import datetime
 from flask import Blueprint, request, jsonify
-from models import user_info, admin_dashboard, story_dashboard, admin_img, story_img, admin_temporary_storage, admin_temporary_img, temporary_storage, temporary_img, db
+from models import user_info, admin_dashboard, story_dashboard, admin_img, story_img, admin_temporary_storage, admin_temporary_img, temporary_storage, temporary_img, tag_list, db
 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
@@ -40,10 +40,17 @@ def write():
                         for img in imgs:
                             newStoryImg = story_img(idx=None, uid=uid,img=img.read())
                             db.session.add(newStoryImg)
+                
+                tag = tag.split(',')
+                for name in tag:
+                    newTag = tag_list(idx=None, dashboardUID=uid, tag=name)
+                    db.session.add(newTag)
+                
                 db.session.commit()
                 
                 return jsonify({'result':True})
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})

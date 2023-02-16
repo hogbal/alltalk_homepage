@@ -94,3 +94,8 @@ class member_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     uid = db.Column(db.String(36), nullable=False)
     id = db.Column(db.String(20), nullable=False)
+    
+class tag_list(db.Model):
+    idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    dashboardUID = db.Column(db.String(36), nullable=False)
+    tag = db.Column(db.String(10), nullable=False)
