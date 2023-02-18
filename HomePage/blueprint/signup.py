@@ -28,3 +28,21 @@ def signup():
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
+        
+@blue_signup.route("/id", methods=["POST"])
+def id():
+    if(request.method == "POST"):
+        id = request.form.get("id",None)
+
+        if(id):
+            try:
+                user = user_info.query.filter(user_info.id==id).first()
+                
+                if(user):
+                    return jsonify({'result':False})
+                else:
+                    return jsonify({'result':True})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
