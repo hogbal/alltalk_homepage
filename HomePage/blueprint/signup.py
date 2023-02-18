@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import user_info, db
+from models import user_info, user_profile, db
 
 blue_signup = Blueprint("signup", __name__, url_prefix="/signup")
 
@@ -20,8 +20,10 @@ def signup():
         if(id and pw and name and phone and email and nickname and sex != None and birthday and tag and admin != None):
             try:
                 new_user = user_info(id=id, pw=pw, name=name, phone=phone, email=email, nickname=nickname, sex=sex, birthday=birthday, tag=tag, admin=admin)
+                new_user_profile = user_profile(id=id, profile=None)
 
                 db.session.add(new_user)
+                db.session.add(new_user_profile)
                 db.session.commit()
                 return jsonify({'result':True})
             except:

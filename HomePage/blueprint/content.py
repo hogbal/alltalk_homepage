@@ -4,7 +4,7 @@ from models import user_info, content_dashboard, content_img, content_member_lis
 blue_content = Blueprint("content", __name__, url_prefix="/content")
 
 @blue_content.route("/<idx>", methods=["POST"])
-def story(idx):
+def content(idx):
     if(request.method == "POST"):
         try:
             content = content_dashboard.query.filter(content_dashboard.idx==idx).first()
@@ -28,7 +28,7 @@ def story(idx):
                 },
                 'user':{
                     'nickname':user.nickname,
-                    'profile':user.profile,
+                    'profile': f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
                     'introduce':user.introduce
                 },
                 'img':[]
@@ -63,8 +63,7 @@ def story(idx):
                 data['nextContent'] = nextData
                 
             return data
-        except Exception as e:
-            print(e)
+        except:
             return jsonify({'result':False})
 
 @blue_content.route("/participation", methods=["POST"])

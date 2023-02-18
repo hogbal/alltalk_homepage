@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, db
+from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, user_profile, db
 
 blue_util = Blueprint("util", __name__, url_prefix="/util")
 
@@ -69,5 +69,17 @@ def story_get_img(idx, num):
         try:
             storyImg = story_img.query.filter(story_img.story_idx==idx).all()
             return storyImg[int(num)].img
+        except:
+            return jsonify({'result':False})
+        
+@blue_util.route("/<id>/profile", methods=["POST"])
+def profile(id):
+    if(request.method == "POST"):
+        try:
+            profile = user_profile.query.filter(user_profile.id==id).first()
+            if(profile.profile):
+                return profile.profile
+            else:
+                return jsonify({'result':False})
         except:
             return jsonify({'result':False})

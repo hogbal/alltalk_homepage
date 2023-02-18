@@ -9,7 +9,7 @@ def init_db(app):
     return db
 
 class user_info(db.Model):
-    id = db.Column(db.String(36), primary_key=True, nullable=False)
+    id = db.Column(db.String(20), primary_key=True, nullable=False)
     pw = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(11), nullable=False)
@@ -19,17 +19,20 @@ class user_info(db.Model):
     birthday = db.Column(db.String(8), nullable=False)
     tag = db.Column(db.String(100), nullable=False)
     introduce = db.Column(db.String(150), nullable=True)
-    profile = db.Column(db.LargeBinary, nullable=True)
     admin = db.Column(db.Boolean, nullable=False)
-    
+
+class user_profile(db.Model):
+    id = db.Column(db.String(20), primary_key=True, nullable=False)
+    profile = db.Column(db.LargeBinary, nullable=True)
+
 class story_like_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    story_idx = db.Column(db.String(36), nullable=False)
+    story_idx = db.Column(db.Integer, nullable=False)
     id = db.Column(db.String(20), nullable=False)
 
 class content_like_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    content_idx = db.Column(db.String(36), nullable=False)
+    content_idx = db.Column(db.Integer, nullable=False)
     id = db.Column(db.String(20), nullable=False)
 
 class story_dashboard(db.Model):
@@ -44,7 +47,7 @@ class story_dashboard(db.Model):
 
 class story_img(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    story_idx = db.Column(db.String(36), nullable=False)
+    story_idx = db.Column(db.Integer, nullable=False)
     img = db.Column(db.LargeBinary, nullable=False)
 
 class story_temporary_storage(db.Model):
@@ -58,7 +61,7 @@ class story_temporary_storage(db.Model):
 
 class story_temporary_img(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    story_idx = db.Column(db.String(36), nullable=False)
+    story_idx = db.Column(db.Integer, nullable=False)
     img = db.Column(db.LargeBinary, nullable=False)
 
 class content_dashboard(db.Model):
@@ -76,7 +79,7 @@ class content_dashboard(db.Model):
 
 class content_img(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    content_idx = db.Column(db.String(36), nullable=False)
+    content_idx = db.Column(db.Integer, nullable=False)
     img = db.Column(db.LargeBinary, nullable=False)
     
 class content_temporary_storage(db.Model):
@@ -92,20 +95,20 @@ class content_temporary_storage(db.Model):
 
 class content_temporary_img(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    content_idx = db.Column(db.String(36), nullable=False)
+    content_idx = db.Column(db.Integer, nullable=False)
     img = db.Column(db.LargeBinary, nullable=False)    
 
 class content_member_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    content_idx = db.Column(db.String(36), nullable=False)
+    content_idx = db.Column(db.Integer, nullable=False)
     id = db.Column(db.String(20), nullable=False)
     
 class story_tag_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    story_idx = db.Column(db.String(36), nullable=False)
+    story_idx = db.Column(db.Integer, nullable=False)
     tag = db.Column(db.String(10), nullable=False)
     
 class content_tag_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    content_idx = db.Column(db.String(36), nullable=False)
+    content_idx = db.Column(db.Integer, nullable=False)
     tag = db.Column(db.String(10), nullable=False)

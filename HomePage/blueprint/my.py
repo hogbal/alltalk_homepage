@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import user_info, content_like_list, story_like_list, content_dashboard, content_member_list, content_img, story_dashboard, story_img, db
+from models import user_info, user_profile, content_like_list, story_like_list, content_dashboard, content_member_list, content_img, story_dashboard, story_img, db
 
 blue_my = Blueprint("my", __name__, url_prefix="/my")
 
@@ -20,7 +20,7 @@ def admin():
                     
                     data = {
                         "nickname":user.nickname,
-                        "profile":user.profile,
+                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
                         "introduce":user.introduce,
                         "story":[],
                         "storyLike":[],
@@ -81,7 +81,7 @@ def user():
                     
                     data = {
                         "nickname":user.nickname,
-                        "profile":user.profile,
+                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
                         "introduce":user.introduce,
                         "story":[],
                         "storyLike":[],
@@ -142,11 +142,12 @@ def update():
         if(id and name and phone and email and nickname and sex != None and birthday and tag):
             try:
                 user = user_info.query.filter(user_info.id==id).first()
+                userProfile = user_profile.query.filter(user_profile.id==user.id).first()
                 
                 if(profile):
-                    user.profile = profile.read()
+                    userProfile.profile = profile.read()
                 else:
-                    user.profile = None
+                    userProfile.profile = None
                 user.introduce = introduce
                 user.name = name
                 user.phone = phone
@@ -158,6 +159,28 @@ def update():
                 db.session.commit()
                 
                 return jsonify({'result':True})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
+        
+@blue_my.route("/password", methods=["POST"])
+def password():
+    if(request.method == "POST"):
+        id = request.form.get("id", None)
+        pw = request.form.get("pw", None)
+        new_pw = request.form.get("newpw", None)
+        
+        if(id and pw and new_pw):
+            try:
+                user = user_info.query.filter((user_info.id==id) & (user_info.pw==pw)).first()
+                
+                if(user):
+                    user.pw = new_pw
+                    db.session.commit()
+                    return jsonify({'result':True})
+                else:
+                    return jsonify({'result':False})
             except:
                 return jsonify({'result':False})
         else:
