@@ -1,7 +1,24 @@
 from flask import Blueprint, request, jsonify
-from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, user_profile, db
+from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, user_info, user_profile, db
 
 blue_util = Blueprint("util", __name__, url_prefix="/util")
+
+@blue_util.route("/admin", methods=["POST"])
+def admin():
+    if(request.method == "POST"):
+        id = request.form.get("id",None)
+        if(id):
+            try:
+                user = user_info.query.filter(user_info.id==id).first()
+                
+                if(user.admin):
+                    return jsonify({'result':True})
+                else:
+                    return jsonify({'result':False})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
 
 @blue_util.route("/content/like", methods=["POST"])
 def content_like():
