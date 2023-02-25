@@ -43,11 +43,13 @@ def story(idx):
 def story_list(tag):
     if(request.method == "POST"):
         id = request.form.get("id",None)
+        start = request.form.get("start",None,type=int)
+        end = request.form.get("end",None,type=int)
         
-        if(id):
+        if(id and start != None and end != None):
             if(tag == 'all'):
                 try:
-                    storyList = story_dashboard.query.filter().all()
+                    storyList = story_dashboard.query.filter().order_by(story_dashboard.idx).all()[start:end]
 
                     data = []
                     
@@ -73,7 +75,7 @@ def story_list(tag):
                     return jsonify({'result':False})
             else:
                 try:
-                    storyTagList = story_tag_list.query.filter(story_tag_list.tag==tag).all()
+                    storyTagList = story_tag_list.query.filter(story_tag_list.tag==tag).order_by(story_tag_list.idx).all()[start:end]
                     
                     data = []
                     
