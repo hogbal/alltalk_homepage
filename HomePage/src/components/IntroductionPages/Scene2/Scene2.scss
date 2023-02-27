@@ -1,0 +1,44 @@
+.scene2 {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 56px;
+  .scene2-backgroundimg {
+    width: 66.5625vw;
+    height: 34.8958vw;
+    // height: 670px;
+    // height: 67.6085vh;
+    background: url("../../../assets/imgs/Scene2/Scene2.jpg") no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .scene2-left {
+    font-family: "SUIT";
+    font-weight: 800;
+    font-size: 2.084vw;
+    color: #191919;
+
+    text-align: left;
+    padding: 84px 18.75vw;
+
+    span {
+      box-shadow: inset 0 -20px 0 #19e6a8;
+    }
+  }
+  .scene2-right {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    // width: 1152px;
+    width: 60vw;
+    height: 100%;
+    background-color: #00cb8e;
+
+    padding: 136px 0 0 91px;
+    text-align: left;
+  }
+}

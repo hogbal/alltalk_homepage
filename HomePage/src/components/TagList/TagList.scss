@@ -1,0 +1,20 @@
+.taglist {
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    li {
+      display: inline-block;
+      font-family: "SUIT";
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: #616269;
+      margin-right: 2.083vw;
+      cursor: pointer;
+    }
+  }
+  .btnsListSelected {
+    color: #191919;
+    border-bottom: 2px solid #191919;
+  }
+}

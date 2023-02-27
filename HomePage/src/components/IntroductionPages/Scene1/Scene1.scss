@@ -1,0 +1,143 @@
+@keyframes textAni {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrolldownText {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(15px);
+    // opacity: 0.3;
+  }
+}
+@keyframes scrolldownImage {
+  0% {
+    transform: translateY(-15px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    // opacity: 0.3;
+  }
+}
+
+.scene1 {
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  transition: all 0.5s;
+
+  .scene1-images {
+    display: flex;
+    transition: all 0.5s ease;
+    z-index: -1;
+    div {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+
+  .scene1-textbox {
+    font-family: "SUIT";
+    color: #ffffff;
+    text-align: left;
+
+    padding: 23.38542vw 0 0 18.75vw;
+    box-sizing: border-box;
+    position: absolute;
+    .scene1-title {
+      font-weight: bold;
+      font-size: 64px;
+      animation: textAni 0.8s forwards;
+      opacity: 0;
+    }
+
+    .scene1-subtitle {
+      font-weight: 500;
+      font-size: 30px;
+      margin-bottom: 28px;
+      animation: textAni 0.8s forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+    }
+
+    .scene1-progressbar-box {
+      display: flex;
+      align-items: center;
+      button {
+        border: 0;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        img {
+          width: 7px;
+        }
+      }
+      .scene1-progressbars {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+
+        .scene1-progressbar {
+          width: 46px;
+          height: 2px;
+          background-color: white;
+          margin-right: 2px;
+        }
+        .scene1-current {
+          background-color: #00cb8e;
+        }
+      }
+    }
+  }
+  .scene1-scrollani {
+    position: absolute;
+    display: inline-block;
+    // left: 905px;
+    // left: 47.1354vw;
+    left: 47.1354vw;
+    bottom: 45px;
+    font-family: "SUIT";
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #ffffff;
+  }
+  .scene1-scrollimg {
+    width: 12px;
+    height: 10px;
+    background-image: url("../../../assets/imgs/scrolldown.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    // left: 948px;
+    left: 50%;
+    bottom: 35px;
+    animation: scrolldownText 1s infinite;
+  }
+}
+
+.scene1::before {
+  content: "";
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #191919;
+}

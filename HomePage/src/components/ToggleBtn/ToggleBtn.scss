@@ -1,0 +1,23 @@
+.toggle {
+  display: inline-block;
+  padding: 0.625vw 1.67vw;
+  // width: 5.52vw;
+  border-radius: 30px;
+
+  font-family: "SUIT";
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.toggle-active {
+  color: #ffffff;
+  background: #00cb8e;
+  border: 1px solid #00cb8e;
+}
+.toggle-nonactive {
+  color: #616269;
+  background: #eef1f4;
+}

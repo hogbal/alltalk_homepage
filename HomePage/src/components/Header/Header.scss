@@ -1,0 +1,102 @@
+.Header {
+  width: 100vw;
+  height: 56px;
+  overflow: hidden;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px 19.115vw;
+  z-index: 10;
+
+  .title {
+    box-sizing: border-box;
+    font-family: "Inter";
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #4f4f4f;
+    white-space: nowrap;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    nav {
+      ul {
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0;
+        white-space: nowrap;
+        box-sizing: border-box;
+        list-style-type: none;
+        li {
+          font-family: "SUIT";
+          font-weight: bold;
+          font-size: 1rem;
+          color: #616269;
+          cursor: pointer;
+        }
+        .currentpath {
+          color: #00cb8e;
+        }
+        li:nth-child(-n + 2) {
+          margin-right: 2.5vw;
+        }
+        li:last-child {
+          margin-right: 2.4vw;
+        }
+        li:hover {
+          color: #191919;
+        }
+      }
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      button {
+        white-space: nowrap;
+        cursor: pointer;
+        background: #ffffff;
+        font-family: "SUIT";
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+      .loadBtn {
+        border: 0;
+        font-size: 13px;
+        color: #00cb8e;
+        margin-right: 0.625vw;
+        padding: 0;
+      }
+      .loginBtn {
+        border: 1px solid #e4e9ed;
+        border-radius: 19px;
+        margin-right: 0.416vw;
+        padding: 0.3125vw 0.833vw;
+      }
+      .loginBtn:hover {
+        background: #eef1f4;
+        color: #191919;
+      }
+      .signUpBtn {
+        border: 1px solid #00cb8e;
+        color: #00cb8e;
+        border-radius: 19px;
+        padding: 0.3125vw 0.833vw;
+      }
+      .signUpBtn:hover {
+        background: #00cb8e;
+        color: #ffffff;
+      }
+      .profileBtn {
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+
+        border: 1px solid #eef1f4;
+        border-radius: 50%;
+      }
+    }
+  }
+}

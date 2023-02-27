@@ -1,14 +1,12 @@
-FROM python:3
-
-WORKDIR /usr/src/app
+FROM node:14
 
 RUN apt-get update -y && \
 	apt-get install openssh-server -y
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app
 
-EXPOSE 5000
+RUN npm install
+
 EXPOSE 22
 
 #ssh config
@@ -17,4 +15,3 @@ RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_confi
 
 RUN service ssh start
 CMD ["/usr/sbin/sshd", "-D"]
-

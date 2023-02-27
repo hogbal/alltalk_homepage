@@ -1,0 +1,69 @@
+.infoCard {
+  position: relative;
+  // width: 384px;
+  width: 20vw;
+  height: 462px;
+
+  background: #f8f9fb;
+
+  box-shadow: 0px 4px 20px rgba(25, 25, 25, 0.07);
+  box-sizing: border-box;
+
+  font-family: "SUIT";
+  font-weight: 800;
+  // font-size: 24px;
+  font-size: 1.25vw;
+  color: #191919;
+
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  transition: all 0.1s;
+
+  .infoCard-image {
+    height: 280px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      border-radius: 10px 10px 0 0;
+      width: 20vw;
+      height: 284px;
+    }
+  }
+
+  .infoCard-small {
+    img {
+      width: 10.3125vw;
+      height: 187px;
+    }
+  }
+  .infoCard-text {
+    height: 182px;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    .infoCard-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .infoCard-content {
+      font-weight: 400;
+      // font-size: 15px;
+      font-size: 0.78125vw;
+      line-height: 22px;
+    }
+  }
+}
+
+.infoCard:hover {
+  border: 2px solid #00cb8e;
+  transform: translateY(-20px);
+
+  .infoCard-text {
+    .infoCard-title {
+      color: #00cb8e;
+    }
+  }
+}

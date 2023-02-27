@@ -1,0 +1,110 @@
+.storyDetailContent {
+  width: 100%;
+  display: flex;
+  .storyDetailContent-contents {
+    margin-right: 62px;
+  }
+
+  .storyDetailContent-contents-textarea {
+    margin: 60px 0 80px 0;
+    text-align: left;
+
+    font-family: "SUIT";
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 28px;
+    color: #191919;
+  }
+
+  .Line {
+    border: 1px solid #e4e9ed;
+    margin-bottom: 40px;
+  }
+
+  .storyDetailContent-taglist {
+    width: 50%;
+    background-color: pink;
+    .storyDetailContent-tag {
+      box-sizing: border-box;
+      float: left;
+      padding: 4px 7px;
+      height: 25px;
+      background: #deffef;
+      border-radius: 3px;
+
+      margin: 0 8px 8px 0;
+
+      font-size: 14px;
+      color: #00cb8e;
+    }
+  }
+
+  .storyDetailContent-contentsinfo {
+    .storyDetailContent-manager {
+      margin-bottom: 38px;
+      .storyDetailContent-managerInfo {
+        img {
+          width: 16px;
+        }
+        display: flex;
+        align-items: center;
+
+        font-family: "SUIT";
+        font-weight: 500;
+        font-size: 16px;
+        color: #191919;
+
+        line-height: 13px;
+        .storyDetailContent-managerInfo-text {
+          width: 70px;
+          text-align: left;
+        }
+        span {
+          font-weight: 600;
+          color: #616269;
+        }
+      }
+    }
+
+    .storyDetailContent-tagbox {
+      box-sizing: border-box;
+      width: 384px;
+      min-height: 142px;
+      overflow-y: scroll;
+      background: #ffffff;
+      border: 1px solid #e4e9ed;
+      border-radius: 10px;
+
+      padding: 24px 20px 0 20px;
+
+      font-family: "SUIT";
+      font-weight: 500;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .storyDetailContent-tagbox-title {
+        font-size: 1rem;
+        line-height: 20px;
+        color: #191919;
+        margin-bottom: 20px;
+      }
+
+      .storyDetailContent-tagbox-list {
+        .storyDetailContent-tagbox-tag {
+          box-sizing: border-box;
+          float: left;
+          padding: 4px 7px;
+          height: 25px;
+          background: #deffef;
+          border-radius: 3px;
+
+          margin: 0 8px 8px 0;
+
+          font-size: 14px;
+          color: #00cb8e;
+        }
+      }
+    }
+  }
+}

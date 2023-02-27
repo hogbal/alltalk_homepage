@@ -1,0 +1,38 @@
+.profileSettingMenuList {
+  box-sizing: border-box;
+
+  width: 282px;
+  height: 282px;
+
+  padding: 39px 24px 80px 24px;
+
+  background: #ffffff;
+  border: 1px solid #e4e9ed;
+  border-radius: 10px;
+
+  text-align: left;
+
+  .profileSettingMenuList-title {
+    font-family: "SUIT";
+    font-weight: bold;
+    font-size: 18px;
+    color: #191919;
+    margin-bottom: 40px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      font-family: "SUIT";
+      font-weight: 600;
+      font-size: 16px;
+      color: #616269;
+      cursor: pointer;
+    }
+    .profilesettingCurrent {
+      color: #00cb8e;
+    }
+  }
+}

@@ -1,12 +1,21 @@
 version: '3'
 services:
   flask:
-    build: ./HomePage
-    image: alltalk/homepage
+    build: ./Server
+    image: alltalk/server
     ports:
       - 5000:5000
     volumes:
-      - ./HomePage:/usr/src/app
+      - ./Server:/usr/src/app
+    environment:
+      - TZ=Asia/Seoul
+  homepage:
+    build: ./HomePage
+    image: alltalk/homepage
+    volumes:
+      - ./HomePage:/app
+    ports:
+      - 3000:3000
     environment:
       - TZ=Asia/Seoul
   mariadb:

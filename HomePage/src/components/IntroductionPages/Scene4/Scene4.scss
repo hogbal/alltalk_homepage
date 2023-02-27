@@ -1,0 +1,55 @@
+.scene4 {
+  width: 100vw;
+  height: 100vh;
+
+  box-sizing: border-box;
+  // padding: 245px 18.75vw 0 18.75vw;
+  padding: 12.76042vw 18.75vw 0 18.75vw;
+
+  display: flex;
+  .scene4-textbox {
+    font-family: "SUIT";
+    font-weight: bold;
+    font-size: 32px;
+
+    color: #191919;
+    text-align: left;
+
+    margin-right: 45px;
+    .scene4-title {
+      position: relative;
+      line-height: 42px;
+
+      margin-bottom: 74px;
+    }
+    .scene4-title::before {
+      content: "";
+      position: absolute;
+      width: 78px;
+      height: 4px;
+      bottom: -30px;
+
+      background: #19e6a8;
+    }
+    .scene4-question {
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 33px;
+
+      margin-bottom: 40px;
+    }
+    .scene4-answer {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: #616269;
+    }
+  }
+
+  .scene4-videobox {
+    video {
+      border-radius: 10px;
+      width: 41.25vw;
+    }
+  }
+}

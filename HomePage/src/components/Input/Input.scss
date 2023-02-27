@@ -1,0 +1,29 @@
+.inputBox {
+  width: 100%;
+  height: 48px;
+
+  font-family: "SUIT";
+  font-weight: 500;
+  font-size: 1rem;
+
+  background: #ffffff;
+  border: 1px solid #e4e9ed;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding-left: 16px;
+
+  -webkit-appearance: none;
+}
+
+.inputBox:focus {
+  border-color: #333333;
+}
+
+.inputBox-error {
+  border-color: #ee0909;
+}
+
+.inputBox::-webkit-outer-spin-button,
+.inputBox::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

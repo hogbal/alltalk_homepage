@@ -1,0 +1,64 @@
+.profileDetailsEdit {
+  box-sizing: border-box;
+
+  width: 100%;
+  padding: 40px 2.5vw 60px 2.5vw;
+
+  background: #ffffff;
+
+  border: 1px solid #eef1f4;
+  border-radius: 10px;
+
+  text-align: left;
+  font-family: "SUIT";
+  font-weight: 600;
+  font-size: 17px;
+  color: #191919;
+
+  .profileDetailsEdit-inputs {
+    margin-top: 50px;
+    .profileDetailsEdit-input-box {
+      position: relative;
+      font-family: "SUIT";
+      font-weight: 600;
+      font-size: 15px;
+
+      color: #616269;
+
+      button {
+        width: 100%;
+        height: 48px;
+
+        border: 0;
+        background-color: #ffffff;
+      }
+      .profileDetailsEdit-input-box-btns {
+        display: flex;
+
+        .profileDetailsEdit-btn-left {
+          border: 1px solid #00cb8e;
+          border-radius: 10px 0px 0px 10px;
+        }
+
+        .profileDetailsEdit-btn-right {
+          border: 1px solid #e4e9ed;
+          border-radius: 0px 10px 10px 0px;
+        }
+      }
+
+      .profileDetailsEdit-input-box-nameCnt {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        padding: 0 16px 15px 0;
+
+        font-family: "SUIT";
+        font-weight: 500;
+        font-size: 14px;
+
+        color: #616269;
+      }
+    }
+  }
+}

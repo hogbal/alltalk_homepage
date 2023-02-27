@@ -1,0 +1,88 @@
+.slider-area {
+  position: relative;
+  overflow: hidden;
+  .slider {
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+
+    overflow: hidden;
+  }
+
+  .slider-btn {
+    position: absolute;
+    box-sizing: border-box;
+    width: 94px;
+    height: 32px;
+    right: 45%;
+    bottom: 0;
+    margin: 0 0 44px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+
+    font-family: "SUIT";
+    font-weight: 500;
+    font-size: 16px;
+
+    color: #ffffff;
+
+    box-sizing: border-box;
+
+    .slider-btn-arrow {
+      border: 0;
+      background: transparent;
+      padding: 0 12px;
+
+      img {
+        width: 6px;
+        height: 12px;
+      }
+    }
+  }
+}
+
+.slider-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+}
+
+.slider-track {
+  position: relative;
+  left: 50%;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  width: fit-content;
+}
+
+.slider-item {
+  position: relative;
+  width: 100vw;
+  height: 450px;
+
+  float: left;
+  // -webkit-filter: brightness(50%);
+  // filter: brightness(50%);
+}
+
+.current-slide {
+  -webkit-filter: none;
+  filter: none;
+}

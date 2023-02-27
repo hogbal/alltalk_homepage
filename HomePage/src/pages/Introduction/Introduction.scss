@@ -1,0 +1,33 @@
+.introduction {
+  width: 100vw;
+  height: 100vh;
+  // overflow: hidden;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  .introduction-header {
+    position: fixed;
+    width: 100vw;
+    height: 56px;
+    top: 0;
+    z-index: 10;
+  }
+
+  .introduction-main {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .introduction-main.animate {
+    animation: mainTest 1s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+  }
+
+  .introduction-contents {
+    display: flex;
+    flex-direction: column;
+  }
+}

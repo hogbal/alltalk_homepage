@@ -1,0 +1,34 @@
+.profilePwEdit {
+  box-sizing: border-box;
+
+  width: 100%;
+  padding: 40px 2.5vw 60px 2.5vw;
+
+  background: #ffffff;
+
+  border: 1px solid #eef1f4;
+  border-radius: 10px;
+
+  text-align: left;
+  .profilePwEdit-inputs {
+    margin-top: 50px;
+
+    .profilePwEdit-btn {
+      text-align: center;
+      button {
+        width: 384px;
+        height: 56px;
+
+        background: #00cb8e;
+        border: 0;
+        border-radius: 10px;
+
+        font-family: "SUIT";
+        font-weight: bold;
+        font-size: 20px;
+
+        color: #ffffff;
+      }
+    }
+  }
+}

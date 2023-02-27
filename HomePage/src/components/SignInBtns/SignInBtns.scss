@@ -1,0 +1,44 @@
+.signInKaKao {
+  width: 64px;
+  height: 64px;
+
+  background-image: url("../../assets/imgs/signinImgs/KaKao.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 50px;
+
+  background-color: #fee500;
+
+  cursor: pointer;
+}
+
+.signInNaver {
+  width: 64px;
+  height: 64px;
+
+  background-image: url("../../assets/imgs/signinImgs/Naver.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 50px;
+
+  background-color: #03cf5e;
+
+  cursor: pointer;
+}
+
+.signInGoogle {
+  width: 64px;
+  height: 64px;
+
+  background-image: url("../../assets/imgs/signinImgs/Google.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 50px;
+
+  background-color: #ffffff;
+
+  cursor: pointer;
+}

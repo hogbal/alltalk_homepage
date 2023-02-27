@@ -1,0 +1,71 @@
+.calendar {
+  background: #ffffff;
+  border: 1px solid #616269;
+  border-radius: 10px;
+  .calendar-btn {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 24px 0 24px;
+    font-family: "SUIT";
+    font-weight: 500;
+    font-size: 1.25rem;
+    background-color: transparent;
+
+    .calendar-btn-left {
+      background: url("../../assets/imgs/calendarLeftArrow.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+    .calendar-btn-right {
+      background: url("../../assets/imgs/calendarRightArrow.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+  }
+  .calendar-content {
+    padding: 20px 23px;
+
+    .calendar-content-date {
+      display: flex;
+      justify-content: space-between;
+      span {
+        font-family: "SUIT";
+        font-weight: 500;
+        font-size: 1rem;
+        color: #616269;
+      }
+    }
+    .calendar-content-week {
+      display: flex;
+      justify-content: space-between;
+    }
+    .calendar-content-day {
+      width: 0.78125vw;
+      height: 0.78125vw;
+      padding: 0.78125vw;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+    .calendar-content-current-day {
+      background-color: #00cb8e;
+      color: #ffffff;
+    }
+    .calendar-content-today::before {
+      transform: translateX(0%) translateY(200%);
+      border-radius: 100%;
+      display: inline-block;
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      content: "";
+      background: #00cb8e;
+      color: #00cb8e;
+    }
+  }
+}

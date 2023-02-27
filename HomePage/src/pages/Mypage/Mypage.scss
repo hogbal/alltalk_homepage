@@ -1,0 +1,42 @@
+.mypage {
+  margin-top: 90px;
+  padding: 0 18.75vw;
+
+  display: flex;
+
+  .mypage-list {
+    width: 100%;
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 0 2.08vw 2.08vw;
+      padding: 0;
+
+      li {
+        font-family: "SUIT";
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        color: #616269;
+        margin-right: 2.08vw;
+        cursor: pointer;
+      }
+      .selectedMenu {
+        font-weight: 800;
+        color: #191919;
+        border-bottom: 1px solid #191919;
+      }
+    }
+  }
+  .mypage-itemlist {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: repeat(auto-fill, minmax(282px, auto));
+    row-gap: 24px;
+
+    margin-bottom: 180px;
+    margin-left: 1.25vw;
+  }
+}

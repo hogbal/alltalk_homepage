@@ -1,0 +1,29 @@
+.save {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: -56px;
+
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: flex-end;
+  .save-box {
+    width: 25vw;
+    height: 100vh;
+    background: #ffffff;
+
+    .save-box-top {
+      height: 7.6652vh;
+      border-bottom: 1px solid #e4e9ed;
+    }
+
+    .save-box-bottom {
+      .save-item {
+        box-sizing: border-box;
+        padding: 16px 24px;
+      }
+    }
+  }
+}

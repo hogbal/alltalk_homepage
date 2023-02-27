@@ -1,0 +1,21 @@
+.signUp {
+  width: 100vw;
+  min-height: calc(100vh - 281px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f9fb;
+
+  .signUp-sns {
+    font-family: "SUIT";
+    font-size: 0.875rem;
+    color: #616269;
+    margin: 39px 0 17px 0;
+    cursor: pointer;
+  }
+
+  .signUp-socialBtns {
+    display: flex;
+    margin-bottom: 200px;
+  }
+}

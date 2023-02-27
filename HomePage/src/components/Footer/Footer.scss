@@ -1,0 +1,27 @@
+.footer {
+  background: #eef1f4;
+  width: 100vw;
+  height: 225px;
+  display: flex;
+  box-sizing: border-box;
+  padding-left: 18.75vw;
+
+  .footer-title {
+    font-family: "Inter";
+    font-weight: bold;
+    font-size: 1.75rem;
+    color: #828282;
+    padding-right: 2.6041vw;
+    padding-top: 33px;
+  }
+
+  .footer-content {
+    display: inline-block;
+    text-align: left;
+    font-family: "SUIT";
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: #616269;
+    padding-top: 41px;
+  }
+}

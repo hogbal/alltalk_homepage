@@ -1,0 +1,184 @@
+.writearticle {
+  width: 100vw;
+  min-height: calc(100vh - 281px);
+  background-color: #f8f9fb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-bottom: 100px;
+
+  box-sizing: border-box;
+  position: relative;
+  .writearticle-box {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e4e9ed;
+    border-radius: 10px;
+
+    width: 41.25vw;
+    padding: 0px 5.3125vw;
+    margin-top: 0.9756vh;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .writearticle-hashtag-input {
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #e4e9ed;
+        border-radius: 10px;
+        padding: 14px 0 14px 16px;
+
+        font-family: "SUIT";
+        font-weight: 500;
+        font-size: 1rem;
+      }
+      .writearticle-hashtag {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 8px;
+        min-width: 66px;
+        height: 25px;
+
+        background: #eef1f4;
+        border-radius: 3px;
+        margin-right: 8px;
+
+        cursor: pointer;
+      }
+      button {
+        border: 0;
+      }
+      .writearticle-hashtag-list {
+        display: flex;
+        margin-top: 12px;
+      }
+
+      li {
+        display: flex;
+        margin-bottom: 10px;
+        font-family: "SUIT";
+        font-weight: 600;
+        font-size: 1.0625rem;
+        color: #191919;
+
+        .writearticle-subtitle {
+          padding-right: 1.04167vw;
+          word-wrap: normal;
+          overflow-wrap: normal;
+          white-space: nowrap;
+          margin-top: 17px;
+
+          width: 10%;
+        }
+
+        .writearticle-input {
+          width: 85%;
+        }
+
+        .writearticle-manager-input {
+          display: flex;
+          .writearticle-input-button {
+            // width: 128px;
+            width: 6.66667vw;
+            height: 48px;
+            background: #ffffff;
+
+            border: 1px solid #e4e9ed;
+          }
+
+          .writearticle-input-button:nth-child(1) {
+            border-radius: 10px 0px 0px 10px;
+          }
+          .writearticle-input-button:nth-child(3) {
+            border-radius: 0px 10px 10px 0px;
+          }
+
+          .writearticle-duedate {
+            border-color: #00cb8e;
+            color: #00cb8e;
+          }
+          .writearticle-calendar-box {
+            width: 14.6875vw;
+            margin-left: 1.25vw;
+
+            .writearticle-calendar {
+              width: 14.6875vw;
+              position: absolute;
+
+              transform: translateY(-100%);
+              z-index: 3;
+            }
+            .writearticle-calendarBtn {
+              background: #ffffff;
+              width: 100%;
+              height: 48px;
+              border: 1px solid #e4e9ed;
+              border-radius: 10px;
+              background-image: url("../../assets/imgs/calendar.jpg");
+              background-repeat: no-repeat;
+              background-position: 95% center;
+              text-align: left;
+              cursor: pointer;
+            }
+            .writearticle-calendarBtn::before {
+              content: "직접 지정";
+              position: absolute;
+              transform: translateX(-0vw) translateY(-250%);
+              font-family: "SUIT";
+              font-weight: 500;
+              font-size: 0.75rem;
+              color: #616269;
+            }
+          }
+        }
+        .writearticle-manager {
+          max-width: 282px;
+          display: flex;
+          align-items: center;
+
+          font-family: "SUIT";
+          font-weight: 600;
+          font-size: 0.9375rem;
+        }
+
+        textarea {
+          width: 100%;
+          height: 400px;
+          background: #ffffff;
+          border: 1px solid #e4e9ed;
+          border-radius: 10px;
+
+          font-family: "SUIT";
+          font-weight: 500;
+          font-size: 1rem;
+          resize: none;
+          overflow-y: scroll;
+          padding: 14px 0 0 16px;
+
+          box-sizing: border-box;
+        }
+      }
+
+      .writearticle-subtitle-flexstart {
+        align-items: flex-start;
+        .writearticle-subtitle {
+          margin-top: 17px;
+        }
+      }
+    }
+  }
+}
+
+.error-message {
+  font-family: "SUIT";
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 12px;
+  color: #ee0909;
+  text-align: left;
+}

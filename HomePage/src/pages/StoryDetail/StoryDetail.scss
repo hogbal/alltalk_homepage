@@ -1,0 +1,99 @@
+.storyDetail {
+  margin-bottom: 120px;
+  .storyDetail-title {
+    width: 100vw;
+    // height: 274px;
+  }
+
+  .storyDetail-content {
+    width: 100vw;
+    min-height: calc(100vh - 555px);
+    box-sizing: border-box;
+
+    padding: 40px 18.75vw 0 18.75vw;
+
+    margin-bottom: 72px;
+  }
+
+  .storyDetail-bottom {
+    padding: 0px 40vw 0 18.75vw;
+    display: flex;
+    button {
+      width: 100%;
+      height: 210px;
+      border: 0;
+      font-family: "SUIT";
+      color: #ffffff;
+
+      position: relative;
+
+      .storyDetail-btn-title {
+        font-size: 15px;
+        line-height: 19px;
+        position: absolute;
+        top: 0;
+        padding: 24px 0 0 16px;
+      }
+      .storyDetail-btn-content {
+        font-weight: 600;
+        font-size: 20px;
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        padding-left: 16px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 63px 16px 0 16px;
+      }
+      .storyDetail-btn-time {
+        font-weight: 500;
+        position: absolute;
+        bottom: 0;
+        padding: 0 0 24px 16px;
+      }
+    }
+
+    .storyDetail-btn-left {
+      img {
+        border-radius: 10px 0px 0px 10px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0.4;
+      }
+      background: black;
+      border-radius: 10px 0px 0px 10px;
+    }
+
+    .storyDetail-btn-mid {
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0.5;
+        object-fit: fill;
+      }
+      background: #00cb8e;
+    }
+
+    .storyDetail-btn-right {
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0.4;
+      }
+      background: black;
+      border-radius: 0px 10px 10px 0px;
+    }
+  }
+}

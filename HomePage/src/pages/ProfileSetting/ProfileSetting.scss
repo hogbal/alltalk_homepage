@@ -1,0 +1,30 @@
+.profileSetting {
+  display: flex;
+
+  padding: 40px 19.115vw 0 19.115vw;
+  background-color: #f8f9fb;
+
+  box-sizing: border-box;
+  .profileSetting-menu {
+    margin-right: 24px;
+  }
+
+  .profileSetting-content {
+    width: 100%;
+
+    .profileSetting-save {
+      width: 384px;
+      height: 56px;
+
+      background: #00cb8e;
+      border: 0;
+      border-radius: 10px;
+
+      font-family: "SUIT";
+      font-weight: bold;
+      font-size: 20px;
+
+      color: #ffffff;
+    }
+  }
+}

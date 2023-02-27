@@ -1,0 +1,44 @@
+.memberSelectBtn {
+  box-sizing: border-box;
+
+  width: 180px;
+  height: 174px;
+
+  background: #ffffff;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  font-family: "SUIT";
+
+  color: #b1b5be;
+  text-align: center;
+
+  padding-top: 16px;
+
+  img {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+  }
+  .memberSelectBtn-position {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .memberSelectBtn-name {
+    font-weight: 600;
+    font-size: 18px;
+
+    color: #000000;
+  }
+
+  &.active {
+    border: 1px solid #00cb8e;
+
+    .memberSelectBtn-position {
+      color: #00cb8e;
+    }
+  }
+}

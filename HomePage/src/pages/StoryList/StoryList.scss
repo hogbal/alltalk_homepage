@@ -1,0 +1,40 @@
+.storylist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  background-color: #f8f9fb;
+  min-height: calc(100vh - 281px);
+
+  .storylist-content {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 81.25vw;
+
+    .storylist-line {
+      margin: 30px 0 60px 0;
+      border: 1px solid #eef1f4;
+      width: 100%;
+    }
+    .storylist-hashtag-list {
+      display: flex;
+      flex-direction: row;
+      font-family: "SUIT";
+      font-weight: 500;
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .storylist-grid {
+      width: 100%;
+      margin-bottom: 180px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+      row-gap: 38px;
+      column-gap: 24px;
+    }
+  }
+}
