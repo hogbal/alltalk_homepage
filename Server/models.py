@@ -38,10 +38,10 @@ class content_like_list(db.Model):
 class story_dashboard(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     id = db.Column(db.String(20), nullable=False)
-    title = db.Column(db.String(20), nullable=False)
-    subtitle = db.Column(db.String(20), nullable=True)
-    content = db.Column(db.String(200), nullable=False)
-    tag = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(300), nullable=False)
+    subtitle = db.Column(db.String(500), nullable=True)
+    content = db.Column(db.String(20000), nullable=False)
+    tag = db.Column(db.String(200), nullable=False)
     day = db.Column(db.DateTime, nullable=False)
     like = db.Column(db.Integer, nullable=False, default=0)
 
@@ -53,10 +53,10 @@ class story_img(db.Model):
 class story_temporary_storage(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     id = db.Column(db.String(20), nullable=False)
-    title = db.Column(db.String(20), nullable=True)
-    subtitle = db.Column(db.String(20), nullable=True)
-    content = db.Column(db.String(200), nullable=True)
-    tag = db.Column(db.String(100), nullable=True)
+    title = db.Column(db.String(300), nullable=True)
+    subtitle = db.Column(db.String(500), nullable=True)
+    content = db.Column(db.String(20000), nullable=True)
+    tag = db.Column(db.String(200), nullable=True)
     day = db.Column(db.DateTime, nullable=False)
 
 class story_temporary_img(db.Model):
@@ -67,10 +67,10 @@ class story_temporary_img(db.Model):
 class content_dashboard(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     id = db.Column(db.String(20), nullable=False)
-    title = db.Column(db.String(20), nullable=False)
-    subtitle = db.Column(db.String(20), nullable=True)
-    content = db.Column(db.String(200), nullable=False)
-    tag = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(300), nullable=False)
+    subtitle = db.Column(db.String(500), nullable=True)
+    content = db.Column(db.String(20000), nullable=False)
+    tag = db.Column(db.String(200), nullable=False)
     day = db.Column(db.DateTime, nullable=False)
     maxMember = db.Column(db.Integer, nullable=False)
     deadline = db.Column(db.DateTime, nullable=False)
@@ -85,10 +85,10 @@ class content_img(db.Model):
 class content_temporary_storage(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     id = db.Column(db.String(20), nullable=False)
-    title = db.Column(db.String(20), nullable=True)
-    subtitle = db.Column(db.String(20), nullable=True)
-    content = db.Column(db.String(200), nullable=True)
-    tag = db.Column(db.String(100), nullable=True)
+    title = db.Column(db.String(300), nullable=True)
+    subtitle = db.Column(db.String(500), nullable=True)
+    content = db.Column(db.String(20000), nullable=True)
+    tag = db.Column(db.String(200), nullable=True)
     day = db.Column(db.DateTime, nullable=False)
     maxMember = db.Column(db.Integer, nullable=True)
     deadline = db.Column(db.DateTime, nullable=True)
@@ -106,9 +106,9 @@ class content_member_list(db.Model):
 class story_tag_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     story_idx = db.Column(db.Integer, nullable=False)
-    tag = db.Column(db.String(10), nullable=False)
+    tag = db.Column(db.String(30), nullable=False)
     
 class content_tag_list(db.Model):
     idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     content_idx = db.Column(db.Integer, nullable=False)
-    tag = db.Column(db.String(10), nullable=False)
+    tag = db.Column(db.String(30), nullable=False)
