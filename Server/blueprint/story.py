@@ -34,7 +34,31 @@ def story(idx):
             for num, img in enumerate(imgList):
                 url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{img.story_idx}/{num}"
                 data['img'].append(url)
-                
+            
+            if(story.idx - 1 > 0):
+                lenPreStory = len(story_img.query.filter(story_img.story_idx==story.idx-1).all())
+                preData = {
+                    'idx':story.idx-1,
+                    'title':storyList[story.idx-1].title,
+                    'day':storyList[story.idx-1].day,
+                    'img':None
+                }
+                if(lenPreStory != 0):
+                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx-1}/0"
+                data['preStory'] = preData
+            
+            if(story.idx < len(storyList)):
+                lenNextStory = len(story_img.query.filter(story_img.story_idx==story.idx+1).all())
+                nextData = {
+                    'idx':story.idx+1,
+                    'title':storyList[story.idx-1].title,
+                    'day':storyList[story.idx-1].day,
+                    'img':None
+                }
+                if(lenNextStory != 0):
+                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx+1}/0"
+                data['nextStory'] = nextData
+            
             return data
         except:
             return jsonify({'result':False})
