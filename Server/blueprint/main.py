@@ -20,14 +20,29 @@ def recruit(tag):
                     for content in contentList:
                         contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         contentData = {
-                                "idx":content.idx,
-                                "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                                "title":content.title,
-                                "day":content.day
-                            }
+                            'idx':content.idx,
+                            'title':content.title,
+                            'subtitle':content.subtitle,
+                            'content':content.content,
+                            'tag':content.tag,
+                            'day':content.day,
+                            'member':content.member,
+                            'maxMember':content.maxMember,
+                            'deadline':content.deadline,
+                            'img':[]
+                        }
+                        
+                        imgList = content_img.query.filter(content_img.content_idx==content.idx).all()
+                    
+                        for num, img in enumerate(imgList):
+                            url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
+                            contentData['img'].append(url)
+                            
                         data.append(contentData)
+                    
                     return data
-                except:
+                except Exception as e:
+                    print(e)
                     return jsonify({'result':False})
             else:
                 try:
@@ -40,11 +55,24 @@ def recruit(tag):
                         if(content):
                             contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                             contentData = {
-                                "idx":content.idx,
-                                "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                                "title":content.title,
-                                "day":content.day
+                                'idx':content.idx,
+                                'title':content.title,
+                                'subtitle':content.subtitle,
+                                'content':content.content,
+                                'tag':content.tag,
+                                'day':content.day,
+                                'member':content.member,
+                                'maxMember':content.maxMember,
+                                'deadline':content.deadline,
+                                'img':[]
                             }
+                            
+                            imgList = content_img.query.filter(content_img.content_idx==content.idx).all()
+                        
+                            for num, img in enumerate(imgList):
+                                url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
+                                contentData['img'].append(url)
+                                
                             data.append(contentData)
                         
                     return data
