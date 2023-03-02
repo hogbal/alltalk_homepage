@@ -14,6 +14,7 @@ def recruit(tag):
             if(tag == 'all'):
                 try:
                     contentList = content_dashboard.query.filter().order_by(content_dashboard.idx).all()[start:end]
+                    contentListAll = content_dashboard.query.filter().order_by(content_dashboard.idx).all()
                     
                     data = []
                     
@@ -37,15 +38,39 @@ def recruit(tag):
                         for num, img in enumerate(imgList):
                             url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
                             contentData['img'].append(url)
-                            
+                        
+                        if(content.idx - 1 > 0):
+                            lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                            preData = {
+                                'idx':content.idx-1,
+                                'title':contentListAll[content.idx-1].title,
+                                'day':contentListAll[content.idx-1].day,
+                                'img':None
+                            }
+                            if(lenPreContent != 0):
+                                preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                            contentData['preContent'] = preData
+                        
+                        if(content.idx < len(contentListAll)):
+                            lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
+                            nextData = {
+                                'idx':content.idx+1,
+                                'title':contentListAll[content.idx-1].title,
+                                'day':contentListAll[content.idx-1].day,
+                                'img':None
+                            }
+                            if(lenNextContent != 0):
+                                nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
+                            contentData['nextContent'] = nextData
+                        
                         data.append(contentData)
                     
                     return data
-                except Exception as e:
-                    print(e)
+                except:
                     return jsonify({'result':False})
             else:
                 try:
+                    contentListAll = content_dashboard.query.filter().order_by(content_dashboard.idx).all()
                     contentTagList = content_tag_list.query.filter(content_tag_list.tag==tag).order_by(content_tag_list.idx).all()[start:end]
                     
                     data = []
@@ -72,7 +97,31 @@ def recruit(tag):
                             for num, img in enumerate(imgList):
                                 url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
                                 contentData['img'].append(url)
-                                
+                            
+                            if(content.idx - 1 > 0):
+                                lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                                preData = {
+                                    'idx':content.idx-1,
+                                    'title':contentListAll[content.idx-1].title,
+                                    'day':contentListAll[content.idx-1].day,
+                                    'img':None
+                                }
+                                if(lenPreContent != 0):
+                                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                                contentData['preContent'] = preData
+                            
+                            if(content.idx < len(contentListAll)):
+                                lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
+                                nextData = {
+                                    'idx':content.idx+1,
+                                    'title':contentListAll[content.idx-1].title,
+                                    'day':contentListAll[content.idx-1].day,
+                                    'img':None
+                                }
+                                if(lenNextContent != 0):
+                                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
+                                contentData['nextContent'] = nextData
+                            
                             data.append(contentData)
                         
                     return data
