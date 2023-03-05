@@ -36,28 +36,28 @@ def story(idx):
                 data['img'].append(url)
             
             if(story.idx - 1 > 0):
-                lenPreStory = len(story_img.query.filter(story_img.story_idx==story.idx-1).all())
-                preData = {
+                lenNextStory = len(story_img.query.filter(story_img.story_idx==story.idx-1).all())
+                nextData = {
                     'idx':story.idx-1,
                     'title':storyList[story.idx-1].title,
                     'day':storyList[story.idx-1].day,
                     'img':None
                 }
-                if(lenPreStory != 0):
-                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx-1}/0"
-                data['preStory'] = preData
+                if(lenNextStory != 0):
+                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx-1}/0"
+                data['nextStory'] = nextData
             
             if(story.idx < len(storyList)):
-                lenNextStory = len(story_img.query.filter(story_img.story_idx==story.idx+1).all())
-                nextData = {
+                lenPreStory = len(story_img.query.filter(story_img.story_idx==story.idx+1).all())
+                preData = {
                     'idx':story.idx+1,
                     'title':storyList[story.idx-1].title,
                     'day':storyList[story.idx-1].day,
                     'img':None
                 }
-                if(lenNextStory != 0):
-                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx+1}/0"
-                data['nextStory'] = nextData
+                if(lenPreStory != 0):
+                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx+1}/0"
+                data['preStory'] = preData
             
             return data
         except:
@@ -73,7 +73,7 @@ def story_list(tag):
         if(id and start != None and end != None):
             if(tag == 'all'):
                 try:
-                    storyList = story_dashboard.query.filter().order_by(story_dashboard.idx).all()[start:end]
+                    storyList = story_dashboard.query.filter().order_by(story_dashboard.idx.desc()).all()[start:end]
 
                     data = []
                     
@@ -99,7 +99,7 @@ def story_list(tag):
                     return jsonify({'result':False})
             else:
                 try:
-                    storyTagList = story_tag_list.query.filter(story_tag_list.tag==tag).order_by(story_tag_list.idx).all()[start:end]
+                    storyTagList = story_tag_list.query.filter(story_tag_list.tag==tag).order_by(story_tag_list.idx.desc()).all()[start:end]
                     
                     data = []
                     

@@ -16,6 +16,8 @@ def content():
         maxMember = request.form.get("maxMember", None)
         deadline = request.form.get("deadline", None)
         
+        print(imgs)
+        
         if(id and title and content and tags and maxMember and deadline):
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
@@ -44,7 +46,8 @@ def content():
                     return jsonify({'result':True})
                 else:
                     return jsonify({'result':False})
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})

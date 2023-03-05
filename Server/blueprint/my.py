@@ -155,6 +155,7 @@ def update():
                 user.nickname = nickname
                 user.sex = sex
                 user.birthday = birthday
+                user.tag = tag
 
                 db.session.commit()
                 

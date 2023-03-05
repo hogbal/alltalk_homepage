@@ -13,8 +13,8 @@ def recruit(tag):
         if(start != None and end != None):
             if(tag == 'all'):
                 try:
-                    contentList = content_dashboard.query.filter().order_by(content_dashboard.idx).all()[start:end]
-                    contentListAll = content_dashboard.query.filter().order_by(content_dashboard.idx).all()
+                    contentList = content_dashboard.query.filter().order_by(content_dashboard.idx.desc()).all()[start:end]
+                    contentListAll = content_dashboard.query.filter().order_by(content_dashboard.idx.desc()).all()
                     
                     data = []
                     
@@ -40,28 +40,28 @@ def recruit(tag):
                             contentData['img'].append(url)
                         
                         if(content.idx - 1 > 0):
-                            lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
-                            preData = {
+                            lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                            nextData = {
                                 'idx':content.idx-1,
                                 'title':contentListAll[content.idx-1].title,
                                 'day':contentListAll[content.idx-1].day,
                                 'img':None
                             }
-                            if(lenPreContent != 0):
-                                preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
-                            contentData['preContent'] = preData
+                            if(lenNextContent != 0):
+                                nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                            contentData['nextContent'] = nextData
                         
                         if(content.idx < len(contentListAll)):
-                            lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
-                            nextData = {
+                            lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
+                            preData = {
                                 'idx':content.idx+1,
                                 'title':contentListAll[content.idx-1].title,
                                 'day':contentListAll[content.idx-1].day,
                                 'img':None
                             }
-                            if(lenNextContent != 0):
-                                nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
-                            contentData['nextContent'] = nextData
+                            if(lenPreContent != 0):
+                                preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
+                            contentData['preContent'] = preData
                         
                         data.append(contentData)
                     
