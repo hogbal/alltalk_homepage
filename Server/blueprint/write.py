@@ -16,8 +16,6 @@ def content():
         maxMember = request.form.get("maxMember", None)
         deadline = request.form.get("deadline", None)
         
-        print(imgs)
-        
         if(id and title and content and tags and maxMember and deadline):
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
@@ -46,8 +44,7 @@ def content():
                     return jsonify({'result':True})
                 else:
                     return jsonify({'result':False})
-            except Exception as e:
-                print(e)
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
@@ -119,7 +116,7 @@ def content_temp():
                     
                     db.session.add(newContent)
                     db.session.commit()
-                    
+
                     if(imgs):
                         for img in imgs:
                             newContentImg = content_temporary_img(idx=None, content_idx=newContent.idx,img=img.read())
@@ -191,6 +188,7 @@ def content_temp_list():
                             "title":content.title,
                             "day":content.day
                         }
+                        
                         data.append(contentData)
                     
                     return data  
@@ -222,6 +220,7 @@ def story_temp_list():
                             "title":story.title,
                             "day":story.day
                         }
+                        
                         data.append(storyData)
                     
                     return data
@@ -241,6 +240,7 @@ def content_temp_load():
         if(idx):
             try:
                 contentTemp = content_temporary_storage.query.filter(content_temporary_storage.idx==idx).first()
+                contentTempImg = content_temporary_img.query.filter(content_temporary_img.content_idx==idx).all()
                 data = {
                     "title":contentTemp.title,
                     "subtitle":contentTemp.subtitle,
@@ -248,8 +248,14 @@ def content_temp_load():
                     "tag":contentTemp.tag,
                     "day":contentTemp.day,
                     "maxMember":contentTemp.maxMember,
-                    "deadline":contentTemp.deadline
+                    "deadline":contentTemp.deadline,
+                    "img":[]
                 }
+                
+                for num, contentImg in enumerate(contentTempImg):
+                    url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/temp/{contentImg.content_idx}/{num}"
+                    data['img'].append(url)
+                
                 return data
             except:
                 return jsonify({'result':False})
@@ -264,15 +270,23 @@ def story_temp_load():
         if(idx):
             try:
                 storyTemp = story_temporary_storage.query.filter(story_temporary_storage.idx==idx).first()
+                storyTempImg = story_temporary_img.query.filter(story_temporary_img.story_idx==idx).all()
                 data = {
                     "title":storyTemp.title,
                     "subtitle":storyTemp.subtitle,
                     "content":storyTemp.content,
                     "tag":storyTemp.tag,
-                    "day":storyTemp.day
+                    "day":storyTemp.day,
+                    "img":[]
                 }
+                
+                for num, storyImg in enumerate(storyTempImg):
+                    url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/temp/{storyImg.story_idx}/{num}"
+                    data['img'].append(url)
+                
                 return data
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})        

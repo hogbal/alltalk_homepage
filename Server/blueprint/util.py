@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, user_info, user_profile, db
+from models import content_like_list, story_like_list, content_dashboard, story_dashboard, content_img, story_img, content_temporary_img, story_temporary_img, user_info, user_profile, db
 
 blue_util = Blueprint("util", __name__, url_prefix="/util")
 
@@ -76,8 +76,7 @@ def content_get_img(idx, num):
         try:
             contentImg = content_img.query.filter(content_img.content_idx==idx).all()
             return contentImg[int(num)].img
-        except Exception as e:
-            print(e)
+        except:
             return jsonify({'result':False})
        
 @blue_util.route("/story/<idx>/<num>", methods=["POST"])
@@ -88,7 +87,25 @@ def story_get_img(idx, num):
             return storyImg[int(num)].img
         except:
             return jsonify({'result':False})
-        
+
+@blue_util.route("/content/temp/<idx>/<num>", methods=["POST"])
+def content_temp_get_img(idx, num):
+    if(request.method == "POST"):
+        try:
+            contentImg = content_temporary_img.query.filter(content_temporary_img.content_idx==idx).all()
+            return contentImg[int(num)].img
+        except:
+            return jsonify({'result':False})
+       
+@blue_util.route("/story/temp/<idx>/<num>", methods=["POST"])
+def story_temp_get_img(idx, num):
+    if(request.method == "POST"):
+        try:
+            storyImg = story_temporary_img.query.filter(story_temporary_img.story_idx==idx).all()
+            return storyImg[int(num)].img
+        except:
+            return jsonify({'result':False})
+
 @blue_util.route("/<id>/profile", methods=["POST"])
 def profile(id):
     if(request.method == "POST"):
