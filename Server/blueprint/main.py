@@ -32,6 +32,7 @@ def recruit(tag):
                             'maxMember':content.maxMember,
                             'deadline':content.deadline,
                             'img':[],
+                            'like':content.like,
                             'participation': False
                         }
                         
@@ -97,6 +98,7 @@ def recruit(tag):
                                 'maxMember':content.maxMember,
                                 'deadline':content.deadline,
                                 'img':[],
+                                'like':content.like,
                                 'participation': False
                             }
                             
