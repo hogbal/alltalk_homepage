@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import story_dashboard, story_img, story_tag_list, story_like_list, user_info
+from models import story_dashboard, story_img, story_tag_list, story_like_list, user_info, user_profile
 
 blue_story = Blueprint("story", __name__, url_prefix="/story")
 
@@ -11,6 +11,7 @@ def story(idx):
             storyList = story_dashboard.query.all()
             imgList = story_img.query.filter(story_img.story_idx==story.idx).all()
             user = user_info.query.filter(user_info.id==story.id).first()
+            profile = user_profile.query.filter(user_profile.id==user.id).first()
 
             storyList = story_dashboard.query.filter().all()
             
@@ -25,7 +26,7 @@ def story(idx):
                 },
                 'user':{
                     'nickname':user.nickname,
-                    'profile':f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                    'profile': f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{user.id}/profile" if(profile.profile) else None,
                     'introduce':user.introduce
                 },
                 'img':[]
@@ -80,11 +81,12 @@ def story_list(tag):
                     for story in storyList:
                         storyImgLen = len(story_img.query.filter(story_img.story_idx==story_img.idx).all())
                         user = user_info.query.filter(user_info.id==story.id).first()
+                        profile = user_profile.query.filter(user_profile.id==user.id).first()
                         isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
                         storyData = {
                                 "idx":story.idx,
                                 "nickname":user.nickname,
-                                "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                                "profile": f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{user.id}/profile" if(profile.profile) else None,
                                 "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
                                 "tag":story.tag,
                                 "title":story.title,
@@ -108,11 +110,12 @@ def story_list(tag):
                         if(story):
                             storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                             user = user_info.query.filter(user_info.id==story.id).first()
+                            profile = user_profile.query.filter(user_profile.id==user.id).first()
                             isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
                             storyData = {
                                 "idx":story.idx,
                                 "nickname":user.nickname,
-                                "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                                "profile": f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{user.id}/profile" if(profile.profile) else None,
                                 "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
                                 "tag":story.tag,
                                 "title":story.title,

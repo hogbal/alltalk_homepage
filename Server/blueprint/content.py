@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import user_info, content_dashboard, content_img, content_member_list, db
+from models import user_info, user_profile, content_dashboard, content_img, content_member_list, db
 
 blue_content = Blueprint("content", __name__, url_prefix="/content")
 
@@ -11,7 +11,7 @@ def content(idx):
             contentList = content_dashboard.query.all()
             imgList = content_img.query.filter(content_img.content_idx==content.idx).all()
             user = user_info.query.filter(user_info.id==content.id).first()
-
+            profile = user_profile.query.filter(user_profile.id==user.id).first()
             contentList = content_dashboard.query.filter().all()
             
             data = {
@@ -28,7 +28,7 @@ def content(idx):
                 },
                 'user':{
                     'nickname':user.nickname,
-                    'profile': f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                    'profile': f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{user.id}/profile" if(profile.profile) else None,
                     'introduce':user.introduce
                 },
                 'img':[]
