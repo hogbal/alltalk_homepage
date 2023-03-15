@@ -37,6 +37,7 @@ def admin():
                             "content":content.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{content.idx}",
+                            "like":content.like
                         }
                         data["story"].append(contentData)
                         
@@ -49,7 +50,8 @@ def admin():
                             "day":story.day,
                             "content":story.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}",
+                            "like":story.like
                         }
                         data["storyLike"].append(storyLikeData)
                         
@@ -62,7 +64,8 @@ def admin():
                             "day":content.day,
                             "content":content.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}",
+                            "like":content.like
                         }
                         data["contentLike"].append(contentLikeData)
                         
@@ -75,7 +78,8 @@ def admin():
                             "day":content.day,
                             "content":content.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}",
+                            "like":content.like
                         }
                         data["participation"].append(participationData)
                     
@@ -120,7 +124,8 @@ def user():
                             "day":story.day,
                             "content":story.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{story.idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{story.idx}",
+                            "like":story.like
                         }
                         data["story"].append(storyData)
                         
@@ -133,7 +138,8 @@ def user():
                             "day":story.day,
                             "content":story.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}",
+                            "like":story.like
                         }
                         data["storyLike"].append(storyLikeData)
                         
@@ -146,7 +152,8 @@ def user():
                             "day":content.day,
                             "content":content.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}",
+                            "like":content.like
                         }
                         data["contentLike"].append(contentLikeData)
                         
@@ -159,15 +166,15 @@ def user():
                             "day":content.day,
                             "content":content.content,
                             "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}",
+                            "like":content.like
                         }
                         data["participation"].append(participationData)
                     
                     return data
                 else:
                     return jsonify({'result':False})
-            except Exception as e:
-                print(e)
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
