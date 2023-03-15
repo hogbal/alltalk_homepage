@@ -32,27 +32,49 @@ def admin():
                         contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         contentData = {
                             "idx":content.idx,
+                            "title":content.title,
+                            "day":content.day,
+                            "content":content.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{content.idx}",
                         }
                         data["story"].append(contentData)
                         
                     for storyLike in storyLikeList:
+                        story = story_dashboard.query.filter(story_dashboard.idx==storyLike.story_idx).first()
+                        storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                         storyLikeData = {
                             "idx":storyLike.story_idx,
+                            "title":story.title,
+                            "day":story.day,
+                            "content":story.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
                         }
                         data["storyLike"].append(storyLikeData)
                         
                     for contentLike in contentLikeList:
+                        content = content_dashboard.query.filter(content_dashboard.idx==contentLike.content_idx).first()
+                        contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         contentLikeData = {
                             "idx":contentLike.content_idx,
+                            "title":content.title,
+                            "day":content.day,
+                            "content":content.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
                         }
                         data["contentLike"].append(contentLikeData)
                         
                     for participation in participationList:
+                        content = content_dashboard.query.filter(content_dashboard.idx==participation.content_idx).first()
+                        contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         participationData = {
                             "idx":participation.content_idx,
+                            "title":content.title,
+                            "day":content.day,
+                            "content":content.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
                         }
                         data["participation"].append(participationData)
@@ -94,27 +116,49 @@ def user():
                         storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                         storyData = {
                             "idx":story.idx,
+                            "title":story.title,
+                            "day":story.day,
+                            "content":story.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{story.idx}"
                         }
                         data["story"].append(storyData)
                         
                     for storyLike in storyLikeList:
+                        story = story_dashboard.query.filter(story_dashboard.idx==storyLike.story_idx).first()
+                        storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                         storyLikeData = {
                             "idx":storyLike.story_idx,
+                            "title":story.title,
+                            "day":story.day,
+                            "content":story.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
                         }
                         data["storyLike"].append(storyLikeData)
                         
                     for contentLike in contentLikeList:
+                        content = content_dashboard.query.filter(content_dashboard.idx==contentLike.content_idx).first()
+                        contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         contentLikeData = {
                             "idx":contentLike.content_idx,
+                            "title":content.title,
+                            "day":content.day,
+                            "content":content.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
                         }
                         data["contentLike"].append(contentLikeData)
                         
                     for participation in participationList:
+                        content = content_dashboard.query.filter(content_dashboard.idx==participation.content_idx).first()
+                        contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         participationData = {
                             "idx":participation.content_idx,
+                            "title":content.title,
+                            "day":content.day,
+                            "content":content.content,
+                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
                             "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
                         }
                         data["participation"].append(participationData)
@@ -122,7 +166,8 @@ def user():
                     return data
                 else:
                     return jsonify({'result':False})
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
