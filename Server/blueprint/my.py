@@ -32,27 +32,28 @@ def admin():
                         contentImgLen = len(content_img.query.filter(content_img.content_idx==content.idx).all())
                         contentData = {
                             "idx":content.idx,
-                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx}/0" if(contentImgLen != 0) else None,
-                            "title":content.title,
-                            "day":content.day
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{content.idx}",
                         }
                         data["story"].append(contentData)
                         
                     for storyLike in storyLikeList:
                         storyLikeData = {
-                            "idx":storyLike.story_idx
+                            "idx":storyLike.story_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
                         }
                         data["storyLike"].append(storyLikeData)
                         
                     for contentLike in contentLikeList:
                         contentLikeData = {
-                            "idx":contentLike.story_idx
+                            "idx":contentLike.content_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
                         }
                         data["contentLike"].append(contentLikeData)
                         
                     for participation in participationList:
                         participationData = {
-                            "idx":participation.content_idx
+                            "idx":participation.content_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
                         }
                         data["participation"].append(participationData)
                     
@@ -93,27 +94,28 @@ def user():
                         storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                         storyData = {
                             "idx":story.idx,
-                            "img":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx}/0" if(storyImgLen != 0) else None,
-                            "title":story.title,
-                            "day":story.day
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{story.idx}"
                         }
                         data["story"].append(storyData)
                         
                     for storyLike in storyLikeList:
                         storyLikeData = {
-                            "idx":storyLike.story_idx
+                            "idx":storyLike.story_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/story/{storyLike.story_idx}"
                         }
                         data["storyLike"].append(storyLikeData)
                         
                     for contentLike in contentLikeList:
                         contentLikeData = {
-                            "idx":contentLike.content_idx
+                            "idx":contentLike.content_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{contentLike.content_idx}"
                         }
                         data["contentLike"].append(contentLikeData)
                         
                     for participation in participationList:
                         participationData = {
-                            "idx":participation.content_idx
+                            "idx":participation.content_idx,
+                            "url":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/content/{participation.content_idx}"
                         }
                         data["participation"].append(participationData)
                     
