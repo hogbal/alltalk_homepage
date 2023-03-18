@@ -23,6 +23,7 @@ def content(idx):
             data = {
                 'content':{
                     'idx':content.idx,
+                    'id':content.id,
                     'title':content.title,
                     'subtitle':content.subtitle,
                     'content':content.content,

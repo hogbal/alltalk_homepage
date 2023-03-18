@@ -23,6 +23,7 @@ def story(idx):
             data = {
                 'story':{
                     'idx':story.idx,
+                    'id':story.id,
                     'title':story.title,
                     'subtitle':story.subtitle,
                     'content':story.content,

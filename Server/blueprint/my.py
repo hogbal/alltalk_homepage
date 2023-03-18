@@ -44,6 +44,7 @@ def admin():
                 
                 if(isAdmin):
                     user = user_info.query.filter(user_info.id==id).first()
+                    profile = user_profile.query.filter(user_profile.id==user.id).first()
                     contentList = content_dashboard.query.filter(content_dashboard.id==id).all()
                     storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
                     contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
@@ -51,7 +52,7 @@ def admin():
                     
                     data = {
                         "nickname":user.nickname,
-                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile" if(profile.profile) else None, 
                         "introduce":user.introduce,
                         "story":[],
                         "storyLike":[],
@@ -132,6 +133,7 @@ def user():
                 
                 if(isUser):
                     user = user_info.query.filter(user_info.id==id).first()
+                    profile = user_profile.query.filter(user_profile.id==user.id).first()
                     storyList = story_dashboard.query.filter(story_dashboard.id==id).all()
                     storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
                     contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
@@ -139,7 +141,7 @@ def user():
                     
                     data = {
                         "nickname":user.nickname,
-                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile",
+                        "profile":f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{user.id}/profile" if(profile.profile) else None,
                         "introduce":user.introduce,
                         "story":[],
                         "storyLike":[],
