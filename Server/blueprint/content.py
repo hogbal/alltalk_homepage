@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import user_info, user_profile, content_dashboard, content_img, content_member_list, db
+from models import user_info, user_profile, content_dashboard, content_img, content_member_list, content_like_list, db
 
 blue_content = Blueprint("content", __name__, url_prefix="/content")
 
@@ -16,7 +16,7 @@ def content(idx):
             contentList = content_dashboard.query.filter().all()
             
             if(id):
-                isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
+                isLike = content_like_list.query.filter((content_like_list.content_idx==content.idx) & (content_like_list.id==id)).first()
             else:
                 isLike = False
             
@@ -71,7 +71,8 @@ def content(idx):
                 data['nextContent'] = nextData
                 
             return data
-        except:
+        except Exception as e:
+            print(e)
             return jsonify({'result':False})
 
 @blue_content.route("/participation", methods=["POST"])
