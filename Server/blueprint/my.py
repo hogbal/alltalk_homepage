@@ -3,6 +3,37 @@ from models import user_info, user_profile, content_like_list, story_like_list, 
 
 blue_my = Blueprint("my", __name__, url_prefix="/my")
 
+@blue_my.route("/info", methods=["POST"])
+def info():
+    if(request.method == "POST"):
+        id = request.form.get("id",None)
+        if(id):
+            try:
+                user = user_info.query.filter(user_info.id==id).first()
+                profile = user_profile.query.filter(user_profile.id==user.id).first()
+
+                data = {
+                    'id':user.id,
+                    'pw':user.pw,
+                    'name':user.name,
+                    'phone':user.phone,
+                    'email':user.email,
+                    'nickname':user.nickname,
+                    'sex':user.sex,
+                    'birthday':user.birthday,
+                    'tag':user.tag,
+                    'introduce':user.introduce,
+                    'admin':user.admin,
+                    'profile': f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/{user.id}/profile" if(profile.profile) else None,
+                }
+                
+                return data
+            except Exception as e:
+                print(e)
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
+
 @blue_my.route("/admin", methods=["POST"])
 def admin():
     if(request.method == "POST"):

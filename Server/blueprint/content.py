@@ -6,13 +6,19 @@ blue_content = Blueprint("content", __name__, url_prefix="/content")
 @blue_content.route("/<idx>", methods=["POST"])
 def content(idx):
     if(request.method == "POST"):
+        id = request.form.get("id",None)
+        
         try:
             content = content_dashboard.query.filter(content_dashboard.idx==idx).first()
-            contentList = content_dashboard.query.all()
             imgList = content_img.query.filter(content_img.content_idx==content.idx).all()
             user = user_info.query.filter(user_info.id==content.id).first()
             profile = user_profile.query.filter(user_profile.id==user.id).first()
             contentList = content_dashboard.query.filter().all()
+            
+            if(id):
+                isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
+            else:
+                isLike = False
             
             data = {
                 'content':{
@@ -24,7 +30,8 @@ def content(idx):
                     'day':content.day,
                     'member':content.member,
                     'maxMember':content.maxMember,
-                    'deadline':content.deadline
+                    'deadline':content.deadline,
+                    'islike': True if(isLike) else False
                 },
                 'user':{
                     'nickname':user.nickname,

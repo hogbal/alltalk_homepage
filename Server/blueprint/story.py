@@ -6,14 +6,19 @@ blue_story = Blueprint("story", __name__, url_prefix="/story")
 @blue_story.route("/<idx>", methods=["POST"])
 def story(idx):
     if(request.method == "POST"):
+        id = request.form.get("id",None)
+        
         try:
             story = story_dashboard.query.filter(story_dashboard.idx==idx).first()
-            storyList = story_dashboard.query.all()
+            storyList = story_dashboard.query.filter().all()
             imgList = story_img.query.filter(story_img.story_idx==story.idx).all()
             user = user_info.query.filter(user_info.id==story.id).first()
             profile = user_profile.query.filter(user_profile.id==user.id).first()
 
-            storyList = story_dashboard.query.filter().all()
+            if(id):
+                isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
+            else:
+                isLike = False
             
             data = {
                 'story':{
@@ -22,7 +27,8 @@ def story(idx):
                     'subtitle':story.subtitle,
                     'content':story.content,
                     'tag':story.tag,
-                    'day':story.day
+                    'day':story.day,
+                    'islike': True if(isLike) else False
                 },
                 'user':{
                     'nickname':user.nickname,
