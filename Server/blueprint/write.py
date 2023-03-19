@@ -4,6 +4,13 @@ from models import user_info, content_dashboard, content_img, content_tag_list, 
 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
+def check_filename(filename):
+    extension = filename.split(".")[-1]
+    if(extension == 'jpg' or extension == 'png' or extension == 'gif'):
+        return True
+    else:
+        return False
+
 @blue_write.route("/content", methods=["POST"])
 def content():
     if(request.method == "POST"):
@@ -19,6 +26,10 @@ def content():
         if(id and title and content and tags and maxMember and deadline and imgs):
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
+                
+                for img in imgs:
+                    if(not check_filename(img.filename)):
+                        raise Exception("filename error!")
                 
                 if(isAdmin):
                     now = datetime.datetime.now()
@@ -43,7 +54,8 @@ def content():
                     return jsonify({'result':True})
                 else:
                     return jsonify({'result':False})
-            except:
+            except Exception as e:
+                print(e)
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
@@ -61,6 +73,10 @@ def story():
         if(id and title and content and tags and imgs):
             try:
                 isUser = not user_info.query.filter(user_info.id==id).first().admin
+                
+                for img in imgs:
+                    if(not check_filename(img.filename)):
+                        raise Exception("filename error!")
                 
                 if(isUser):
                     now = datetime.datetime.now()
