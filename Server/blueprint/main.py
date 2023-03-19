@@ -42,28 +42,28 @@ def recruit(tag):
                             url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
                             contentData['img'].append(url)
                         
-                        if(content.idx - 1 > 0):
-                            lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                        if(content.idx < len(contentListAll)):
+                            lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
                             nextData = {
-                                'idx':content.idx-1,
-                                'title':contentListAll[content.idx-1].title,
-                                'day':contentListAll[content.idx-1].day,
+                                'idx':content.idx+1,
+                                'title':contentListAll[content.idx].title,
+                                'day':contentListAll[content.idx].day,
                                 'img':None
                             }
                             if(lenNextContent != 0):
-                                nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                                nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
                             contentData['nextContent'] = nextData
                         
-                        if(content.idx < len(contentListAll)):
-                            lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
+                        if(content.idx - 1 > 0):
+                            lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
                             preData = {
-                                'idx':content.idx+1,
-                                'title':contentListAll[content.idx-1].title,
-                                'day':contentListAll[content.idx-1].day,
+                                'idx':content.idx-1,
+                                'title':contentListAll[content.idx-2].title,
+                                'day':contentListAll[content.idx-2].day,
                                 'img':None
                             }
                             if(lenPreContent != 0):
-                                preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
+                                preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
                             contentData['preContent'] = preData
                         
                         if(id):
@@ -74,7 +74,8 @@ def recruit(tag):
                         data.append(contentData)
                     
                     return data
-                except:
+                except Exception as e:
+                    print(e)
                     return jsonify({'result':False})
             else:
                 try:
@@ -108,28 +109,28 @@ def recruit(tag):
                                 url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
                                 contentData['img'].append(url)
                             
-                            if(content.idx - 1 > 0):
-                                lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                            if(content.idx < len(contentListAll)):
+                                lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
                                 nextData = {
-                                    'idx':content.idx-1,
-                                    'title':contentListAll[content.idx-1].title,
-                                    'day':contentListAll[content.idx-1].day,
+                                    'idx':content.idx+1,
+                                    'title':contentListAll[content.idx].title,
+                                    'day':contentListAll[content.idx].day,
                                     'img':None
                                 }
                                 if(lenNextContent != 0):
-                                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
                                 contentData['nextContent'] = nextData
                             
-                            if(content.idx < len(contentListAll)):
-                                lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
+                            if(content.idx - 1 > 0):
+                                lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
                                 preData = {
-                                    'idx':content.idx+1,
-                                    'title':contentListAll[content.idx-1].title,
-                                    'day':contentListAll[content.idx-1].day,
+                                    'idx':content.idx-1,
+                                    'title':contentListAll[content.idx-2].title,
+                                    'day':contentListAll[content.idx-2].day,
                                     'img':None
                                 }
                                 if(lenPreContent != 0):
-                                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
+                                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
                                 contentData['preContent'] = preData
                             
                             if(id):

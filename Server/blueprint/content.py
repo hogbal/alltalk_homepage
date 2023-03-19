@@ -46,33 +46,32 @@ def content(idx):
                 url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{img.content_idx}/{num}"
                 data['img'].append(url)
             
-            if(content.idx - 1 > 0):
-                lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
-                preData = {
-                    'idx':content.idx-1,
-                    'title':contentList[content.idx-1].title,
-                    'day':contentList[content.idx-1].day,
-                    'img':None
-                }
-                if(lenPreContent != 0):
-                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
-                data['preContent'] = preData
-            
             if(content.idx < len(contentList)):
                 lenNextContent = len(content_img.query.filter(content_img.content_idx==content.idx+1).all())
                 nextData = {
                     'idx':content.idx+1,
-                    'title':contentList[content.idx-1].title,
-                    'day':contentList[content.idx-1].day,
+                    'title':contentList[content.idx].title,
+                    'day':contentList[content.idx].day,
                     'img':None
                 }
                 if(lenNextContent != 0):
                     nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx+1}/0"
                 data['nextContent'] = nextData
+            
+            if(content.idx - 1 > 0):
+                lenPreContent = len(content_img.query.filter(content_img.content_idx==content.idx-1).all())
+                preData = {
+                    'idx':content.idx-1,
+                    'title':contentList[content.idx-2].title,
+                    'day':contentList[content.idx-2].day,
+                    'img':None
+                }
+                if(lenPreContent != 0):
+                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/content/{content.idx-1}/0"
+                data['preContent'] = preData
                 
             return data
-        except Exception as e:
-            print(e)
+        except:
             return jsonify({'result':False})
 
 @blue_content.route("/participation", methods=["POST"])
