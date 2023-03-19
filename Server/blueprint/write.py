@@ -16,7 +16,7 @@ def content():
         maxMember = request.form.get("maxMember", None)
         deadline = request.form.get("deadline", None)
         
-        if(id and title and content and tags and maxMember and deadline):
+        if(id and title and content and tags and maxMember and deadline and imgs):
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
                 
@@ -29,11 +29,10 @@ def content():
                     db.session.add(newContent)
                     db.session.commit()
                     
-                    if(imgs):
-                        for img in imgs:
-                            newContentImg = content_img(idx=None, content_idx=newContent.idx,img=img.read())
-                            db.session.add(newContentImg)
-                        db.session.commit()
+                    for img in imgs:
+                        newContentImg = content_img(idx=None, content_idx=newContent.idx,img=img.read())
+                        db.session.add(newContentImg)
+                    db.session.commit()
                     
                     tags = tags.split(',')
                     for tag in tags:
@@ -59,7 +58,7 @@ def story():
         imgs = request.files.getlist("file[]")
         tags = request.form.get("tag", None)
         
-        if(id and title and content and tags):
+        if(id and title and content and tags and imgs):
             try:
                 isUser = not user_info.query.filter(user_info.id==id).first().admin
                 
@@ -71,11 +70,10 @@ def story():
                     db.session.add(newStory)
                     db.session.commit()
                     
-                    if(imgs):
-                        for img in imgs:
-                            newContentImg = story_img(idx=None, story_idx=newStory.idx,img=img.read())
-                            db.session.add(newContentImg)
-                        db.session.commit()
+                    for img in imgs:
+                        newContentImg = story_img(idx=None, story_idx=newStory.idx,img=img.read())
+                        db.session.add(newContentImg)
+                    db.session.commit()
                     
                     tags = tags.split(',')
                     for tag in tags:
