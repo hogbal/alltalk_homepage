@@ -299,8 +299,53 @@ def story_temp_load():
                     data['img'].append(url)
                 
                 return data
-            except Exception as e:
-                print(e)
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})        
+        
+@blue_write.route("/content/temp/del",methods=["POST"])
+def content_temp_del():
+    if(request.method == "POST"):
+        idx = request.form.get("idx",None)
+        
+        if(idx):
+            try:
+                contentTemp = content_temporary_storage.query.filter(content_temporary_storage.idx==idx).first()
+                contentTempImg = content_temporary_img.query.filter(content_temporary_img.content_idx==idx).all()
+                
+                for contentImg in contentTempImg:
+                    db.session.delete(contentImg)
+                    db.session.commit()
+                    
+                db.session.delete(contentTemp)
+                db.session.commit()
+                
+                return jsonify({'result':True})
+            except:
+                return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})        
+
+@blue_write.route("/story/temp/del",methods=["POST"])
+def story_temp_del():
+    if(request.method == "POST"):
+        idx = request.form.get("idx",None)
+        
+        if(idx):
+            try:
+                storyTemp = story_temporary_storage.query.filter(story_temporary_storage.idx==idx).first()
+                storyTempImg = story_temporary_img.query.filter(story_temporary_img.story_idx==idx).all()
+                
+                for storyImg in storyTempImg:
+                    db.session.delete(storyImg)
+                    db.session.commit()
+                
+                db.session.delete(storyTemp)
+                db.session.commit()
+                
+                return jsonify({'result':True})
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})        
