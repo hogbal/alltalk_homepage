@@ -74,8 +74,7 @@ def recruit(tag):
                         data.append(contentData)
                     
                     return data
-                except Exception as e:
-                    print(e)
+                except:
                     return jsonify({'result':False})
             else:
                 try:

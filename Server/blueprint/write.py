@@ -5,8 +5,8 @@ from models import user_info, content_dashboard, content_img, content_tag_list, 
 blue_write = Blueprint("write", __name__, url_prefix="/write")
 
 def check_filename(filename):
-    extension = filename.split(".")[-1]
-    if(extension == 'jpg' or extension == 'png' or extension == 'gif'):
+    extension = filename.split(".")[-1].lower()
+    if(extension == 'jpg' or extension == 'png' or extension == 'jpeg' or extension == 'gif'):
         return True
     else:
         return False
@@ -54,8 +54,7 @@ def content():
                     return jsonify({'result':True})
                 else:
                     return jsonify({'result':False})
-            except Exception as e:
-                print(e)
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})

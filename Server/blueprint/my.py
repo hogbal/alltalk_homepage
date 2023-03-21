@@ -28,8 +28,7 @@ def info():
                 }
                 
                 return data
-            except Exception as e:
-                print(e)
+            except:
                 return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})
