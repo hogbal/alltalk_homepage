@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import story_dashboard, story_img, story_tag_list, story_like_list, user_info, user_profile
+from models import story_dashboard, story_img, story_tag_list, story_like_list, user_info, user_profile, db
 
 blue_story = Blueprint("story", __name__, url_prefix="/story")
 
@@ -10,7 +10,8 @@ def story(idx):
         
         try:
             story = story_dashboard.query.filter(story_dashboard.idx==idx).first()
-            storyList = story_dashboard.query.filter().all()
+            preStory = story_dashboard.query.filter(story_dashboard.idx < story.idx).order_by(story_dashboard.idx.desc()).limit(1).first()
+            nextStory = story_dashboard.query.filter(story_dashboard.idx > story.idx).order_by(story_dashboard.idx).limit(1).first()
             imgList = story_img.query.filter(story_img.story_idx==story.idx).all()
             user = user_info.query.filter(user_info.id==story.id).first()
             profile = user_profile.query.filter(user_profile.id==user.id).first()
@@ -43,28 +44,28 @@ def story(idx):
                 url = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{img.story_idx}/{num}"
                 data['img'].append(url)
             
-            if(story.idx < len(storyList)):
-                lenNextStory = len(story_img.query.filter(story_img.story_idx==story.idx+1).all())
+            if(nextStory):
+                lenNextStory = len(story_img.query.filter(story_img.story_idx==nextStory.idx).all())
                 nextData = {
-                    'idx':story.idx+1,
-                    'title':storyList[story.idx].title,
-                    'day':storyList[story.idx].day,
+                    'idx':nextStory.idx,
+                    'title':nextStory.title,
+                    'day':nextStory.day,
                     'img':None
                 }
                 if(lenNextStory != 0):
-                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx+1}/0"
+                    nextData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{nextStory.idx}/0"
                 data['nextStory'] = nextData
             
-            if(story.idx - 1 > 0):
-                lenPreStory = len(story_img.query.filter(story_img.story_idx==story.idx-1).all())
+            if(preStory):
+                lenPreStory = len(story_img.query.filter(story_img.story_idx==preStory.idx).all())
                 preData = {
-                    'idx':story.idx-1,
-                    'title':storyList[story.idx-2].title,
-                    'day':storyList[story.idx-2].day,
+                    'idx':preStory.idx,
+                    'title':preStory.title,
+                    'day':preStory.day,
                     'img':None
                 }
                 if(lenPreStory != 0):
-                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{story.idx-1}/0"
+                    preData['img'] = f"http://ec2-13-125-123-39.ap-northeast-2.compute.amazonaws.com:5000/util/story/{preStory.idx}/0"
                 data['preStory'] = preData
             
             return data
@@ -86,7 +87,7 @@ def story_list(tag):
                     data = []
                     
                     for story in storyList:
-                        storyImgLen = len(story_img.query.filter(story_img.story_idx==story_img.idx).all())
+                        storyImgLen = len(story_img.query.filter(story_img.story_idx==story.idx).all())
                         user = user_info.query.filter(user_info.id==story.id).first()
                         profile = user_profile.query.filter(user_profile.id==user.id).first()
                         isLike = story_like_list.query.filter((story_like_list.story_idx==story.idx) & (story_like_list.id==id)).first()
@@ -136,5 +137,38 @@ def story_list(tag):
                     return data
                 except:
                     return jsonify({'result':False})
+        else:
+            return jsonify({'result':'error'})
+        
+@blue_story.route("/delete", methods=["POST"])
+def delete():
+    if(request.method == "POST"):
+        idx = request.form.get("idx", None)
+        
+        if(idx):
+            try:
+                story = story_dashboard.query.filter(story_dashboard.idx == idx).first()
+                storyImgs = story_img.query.filter(story_img.story_idx == idx).all()
+                likeList = story_like_list.query.filter(story_like_list.story_idx == idx).all()
+                tagList = story_tag_list.query.filter(story_tag_list.story_idx == idx).all()
+                
+                for storyImg in storyImgs:
+                    db.session.delete(storyImg)
+                    db.session.commit()
+                    
+                for likeStory in likeList:
+                    db.session.delete(likeStory)
+                    db.session.commit()
+                    
+                for tagStory in tagList:
+                    db.session.delete(tagStory)
+                    db.session.commit()
+                    
+                db.session.delete(story)
+                db.session.commit()
+                
+                return jsonify({'result':True})
+            except:
+                return jsonify({'result':False})
         else:
             return jsonify({'result':'error'})

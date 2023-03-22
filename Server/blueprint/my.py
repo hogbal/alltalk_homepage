@@ -44,10 +44,10 @@ def admin():
                 if(isAdmin):
                     user = user_info.query.filter(user_info.id==id).first()
                     profile = user_profile.query.filter(user_profile.id==user.id).first()
-                    contentList = content_dashboard.query.filter(content_dashboard.id==id).all()
-                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
-                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
-                    participationList = content_member_list.query.filter(content_member_list.id==id).all()
+                    contentList = content_dashboard.query.filter(content_dashboard.id==id).order_by(content_dashboard.idx.desc()).all()
+                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).order_by(story_like_list.story_idx.desc()).all()
+                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).order_by(content_like_list.content_idx.desc()).all()
+                    participationList = content_member_list.query.filter(content_member_list.id==id).order_by(content_member_list.content_idx.desc()).all()
                     
                     data = {
                         "nickname":user.nickname,
@@ -133,10 +133,10 @@ def user():
                 if(isUser):
                     user = user_info.query.filter(user_info.id==id).first()
                     profile = user_profile.query.filter(user_profile.id==user.id).first()
-                    storyList = story_dashboard.query.filter(story_dashboard.id==id).all()
-                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).all()
-                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).all()
-                    participationList = content_member_list.query.filter(content_member_list.id==id).all()
+                    storyList = story_dashboard.query.filter(story_dashboard.id==id).order_by(story_dashboard.idx.desc()).all()
+                    storyLikeList = story_like_list.query.filter(story_like_list.id==id).order_by(story_like_list.story_idx.desc()).all()
+                    contentLikeList = content_like_list.query.filter(content_like_list.id==id).order_by(content_like_list.content_idx.desc()).all()
+                    participationList = content_member_list.query.filter(content_member_list.id==id).order_by(content_member_list.content_idx.desc()).all()
                     
                     data = {
                         "nickname":user.nickname,
