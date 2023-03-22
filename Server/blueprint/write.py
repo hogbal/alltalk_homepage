@@ -27,9 +27,9 @@ def content():
             try:
                 isAdmin = user_info.query.filter(user_info.id==id).first().admin
                 
-                for img in imgs:
-                    if(not check_filename(img.filename)):
-                        raise Exception("filename error!")
+                # for img in imgs:
+                #     if(not check_filename(img.filename)):
+                #         raise Exception("filename error!")
                 
                 if(isAdmin):
                     now = datetime.datetime.now()
@@ -73,9 +73,9 @@ def story():
             try:
                 isUser = not user_info.query.filter(user_info.id==id).first().admin
                 
-                for img in imgs:
-                    if(not check_filename(img.filename)):
-                        raise Exception("filename error!")
+                # for img in imgs:
+                #     if(not check_filename(img.filename)):
+                #         raise Exception("filename error!")
                 
                 if(isUser):
                     now = datetime.datetime.now()
